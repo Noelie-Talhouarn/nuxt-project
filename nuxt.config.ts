@@ -25,8 +25,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
     '@nuxt/image',
-    '@nuxt/test-utils',
-    '@nuxtjs/storybook'
+    '@nuxt/test-utils'
   ]
 }
 )
