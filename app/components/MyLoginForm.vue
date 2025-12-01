@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import { watch } from "vue";
-import MyInput from "./MyInput.vue";
+import { watch } from 'vue'
+import MyInput from './MyInput.vue'
 
-const email = ref("");
-const password = ref("");
+const email = ref('')
+const password = ref('')
 
 const postlogin = () => {
-  console.log(email.value, password.value);
-};
+  // eslint-disable-next-line no-console
+  console.log(email.value, password.value)
+}
 
 watch(
   () => email.value,
   (value) => {
-    if (value == "noelie@tal.com") {
-      alert("bonjour noelie");
+    if (value == 'noelie@tal.com') {
+      alert('bonjour noelie')
     }
   }
-);
+)
 </script>
 
 <template>
   <form class="form" @submit.prevent="postlogin">
-    <MyInput label="email" type="email" v-model="email" />
-    <MyInput label="Mots de passe" type="password" v-model="password" />
+    <MyInput v-model="email" label="email" type="email" />
+    <MyInput v-model="password" label="Mots de passe" type="password" />
     <MyButton>Se connecter</MyButton>
   </form>
 </template>

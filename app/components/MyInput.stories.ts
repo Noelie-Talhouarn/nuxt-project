@@ -10,17 +10,17 @@ const meta = {
 
   render: (args) => ({
     components: { MyInput },
-    setup() {
+    setup () {
       return { args }
     },
-    template: '<MyInput v-bind="args"></MyInput>',
+    template: '<MyInput v-bind="args"></MyInput>'
   }),
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs'],
   argTypes: {
     type: { control: 'select', options: ['text', 'email', 'password'] },
-    label: { control: 'text'},
-  },
+    label: { control: 'text' }
+  }
 } satisfies Meta<typeof MyInput>
 
 export default meta
@@ -32,21 +32,21 @@ type Story = StoryObj<typeof meta>
  */
 
 export const Default: Story = {
-    args: {
-        type: 'text',
-    },
+  args: {
+    type: 'text'
+  }
 }
 
 export const password: Story = {
   args: {
-    type: 'password',
-  },
+    type: 'password'
+  }
 }
 
 export const InputTextWithLabel: Story = {
   args: {
-    label: "Label de l'input",
-    type: 'text',
-  },
+    label: 'Label de l\'input',
+    type: 'text'
+  }
 }
 

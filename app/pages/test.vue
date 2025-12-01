@@ -1,11 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-    layout: 'aside'
+  layout: 'aside'
 })
 </script>
 <template>
-    <div>
-        <h1>test</h1>
+  <div>
+    <h1>test</h1>
         
-    </div>
+  </div>
 </template>

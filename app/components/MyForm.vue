@@ -1,13 +1,15 @@
 <script setup lang="ts">
 
-const email = ref("");
-const password = ref("");
+const email = ref('')
+const password = ref('')
 
 const onSubmit = () => {
   // post sur l'api
-  console.log("Submit form");
-  console.log(email.value, password.value);
-};
+  // eslint-disable-next-line no-console
+  console.log('Submit form')
+  // eslint-disable-next-line no-console
+  console.log(email.value, password.value)
+}
 // const onInputEmail = (e :InputEvent) => {
 //     const target = (e.currentTarget as HTMLInputElement).value
 //     email.value = target
@@ -20,15 +22,15 @@ const onSubmit = () => {
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" class="form">
+  <form class="form" @submit.prevent="onSubmit">
     <div class="field">
       <label for="email">Email</label>
-      <input id="email" v-model="email" type="email" />
+      <input id="email" v-model="email" type="email" >
     </div>
 
     <div class="field">
       <label for="password">Mot de passe</label>
-      <input id="password" v-model="password" type="password" />
+      <input id="password" v-model="password" type="password" >
     </div>
 
     <MyButton type="submit" class="button">Valider</MyButton>

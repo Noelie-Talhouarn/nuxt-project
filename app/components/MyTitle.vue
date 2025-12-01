@@ -9,7 +9,7 @@ const props = defineProps<{
 
 
   <component :is="as" class="title" :class="{ large: props.size === 'large',small: props.size === 'small' }">
-    <slot></slot>
+    <slot/>
   </component>
 </template>
 
