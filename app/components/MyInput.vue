@@ -1,19 +1,19 @@
 <script setup lang="ts">
-const model = defineModel()
+const model = defineModel<string>()
 
 defineProps<{
-    label?: string
-    type: 'text' | 'email' | 'password'
+  label?: string
+  type: 'text' | 'email' | 'password'
 }>()
 
 </script>
 
 
 <template>
-    <div class="inputGroup">
-        <label v-if="label">{{label}}</label>
-        <input :type="type" v-model="model">
-    </div>
+  <div class="inputGroup">
+    <label v-if="label">{{label}}</label>
+    <input v-model="model" :type="type">
+  </div>
 </template>
 
 <style lang="scss">

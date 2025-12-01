@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 
 
-const isNavOpen = ref(false);
+const isNavOpen = ref(false)
 
 const onMenuClick = () => {
-  isNavOpen.value = !isNavOpen.value;
-};
+  isNavOpen.value = !isNavOpen.value
+}
 </script>
 
 <template>

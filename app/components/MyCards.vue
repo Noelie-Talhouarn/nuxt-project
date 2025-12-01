@@ -8,14 +8,14 @@ defineProps<{
   details: string;
   buttonText: {
     type: string;
-    default: "Voir la recette";
+    default: 'Voir la recette';
   };
-}>();
+}>()
 </script>
 
 <template>
   <div>
-    <img :src="image" :alt="title" />
+    <img :src="image" :alt="title" >
 
     <MyTitle as="h3" size="small">
       {{ title }}

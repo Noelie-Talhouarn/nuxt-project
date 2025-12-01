@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import IconFacebook from "./icons/IconFacebook.vue"
-import IconInsta from "./icons/IconInsta.vue"
-import IconLogo from "./icons/IconLogo.vue"
-import IconTiktok from "./icons/IconTiktok.vue"
-import IconYoutube from "./icons/IconYoutube.vue"
+import IconFacebook from './icons/IconFacebook.vue'
+import IconInsta from './icons/IconInsta.vue'
+import IconLogo from './icons/IconLogo.vue'
+import IconTiktok from './icons/IconTiktok.vue'
+import IconYoutube from './icons/IconYoutube.vue'
 </script>
 
 <template>

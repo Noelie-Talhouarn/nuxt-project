@@ -5,10 +5,10 @@ const props = defineProps<{
   size?: 'default' | 'small' | 'medium' | 'large'
 }>()
 
-const emit = defineEmits(['ClickAndHover']);
+const emit = defineEmits(['ClickAndHover'])
 
-function handleClickAndHover() {
-emit('ClickAndHover')
+function handleClickAndHover () {
+  emit('ClickAndHover')
 }
 </script>
 
@@ -27,7 +27,7 @@ emit('ClickAndHover')
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
   >
-    <slot></slot>
+    <slot/>
   </a>
   <button
     v-else
@@ -39,10 +39,10 @@ emit('ClickAndHover')
       medium: props.size === 'medium',
       large: props.size === 'large',
     }"
-     @click="handleClickAndHover"
+    @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
   >
-    <slot></slot>
+    <slot/>
   </button>
 </template>
 

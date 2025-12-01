@@ -7,18 +7,18 @@ const meta: Meta<typeof MyTitle> = {
 
   render: (args) => ({
     components: { MyTitle },
-    setup() {
+    setup () {
       return { args }
     },
-    template: '<MyTitle v-bind="args">Texte</MyTitle>',
+    template: '<MyTitle v-bind="args">Texte</MyTitle>'
   }),
 
   tags: ['autodocs'],
 
   argTypes: {
     as: { control: 'select', options: ['h1', 'h2', 'h3'] },
-    size: { control: 'select', options: ['default', 'small', 'medium', 'large'] },
-  },
+    size: { control: 'select', options: ['default', 'small', 'medium', 'large'] }
+  }
 }
 
 export default meta
@@ -29,18 +29,18 @@ export const Default: Story = {}
 
 export const Small: Story = {
   args: {
-    size: 'small',
-  },
+    size: 'small'
+  }
 }
 
 export const Medium: Story = {
   args: {
-    size: 'medium',
-  },
+    size: 'medium'
+  }
 }
 
 export const Large: Story = {
   args: {
-    size: 'large',
-  },
+    size: 'large'
+  }
 }
