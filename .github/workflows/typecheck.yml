@@ -8,10 +8,10 @@ on:
 jobs:
   Typecheck:
     runs-on: ubuntu-latest
-    name: Check type errores
+    name: Check type errors
     steps:
       - uses: actions/checkout@v3
       - run: npm install
-      - run: npm run typecheck
+      - run: npx run typecheck
 
  
