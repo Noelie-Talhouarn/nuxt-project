@@ -1,0 +1,17 @@
+name: Typecheck
+
+on:
+  pull_request:
+    branches: 
+    - main
+    
+jobs:
+  Typecheck:
+    runs-on: ubuntu-latest
+    name: Check type errors
+    steps:
+      - uses: actions/checkout@v3
+      - run: npm install
+      - run: npx run typecheck
+
+ 
