@@ -9,6 +9,13 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: true
   },
+
+  runtimeConfig: {
+    public: {
+      apiUrl: ''
+    }
+  },
+  
   vite: {
     css: {
       preprocessorOptions: {
