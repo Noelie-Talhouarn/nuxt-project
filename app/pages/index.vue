@@ -6,7 +6,35 @@ const { data: recipes, error } = await useAsyncData('recipes', async () => {
   return data
 })
 
+
+const { data: cuisines } = await useAsyncData('cuisines', async () => {
+  const { data } = await $fetch<ApiResponse<Cuisine[]>>(`${config.public.apiUrl}/api/cuisines`
+  )
+  return data
+})
+
 if (error && error.value) throw new Error('Page not found')
+
+const filters = ref<Cuisine['name'][]>([])
+
+function onCheckboxInput ($event: Event) {
+  const target = $event.target
+  if (!(target instanceof HTMLInputElement)) return
+  const value = target.value
+  if (!filters.value.includes(value)) {
+    filters.value.push(value)
+  } else {
+    const index = filters.value.findIndex(filterValue => filterValue === value)
+    filters.value.splice(index, 1)
+  }
+}
+
+const filteredRecipes = computed<Recipe[]>(() => {
+  if (!recipes.value) return []
+  if (!filters.value.length) return recipes.value
+  return recipes.value.filter(recipe => filters.value.includes(recipe.cuisine_name))
+})
+
 </script>
 
 <template>
@@ -42,10 +70,16 @@ if (error && error.value) throw new Error('Page not found')
       details="40 MIN • EASY PREP • 3 SERVES"
       button-text="voir la recette"
     />
+    <p>active filter : {{ filters }}</p>
+    <div class="recipes-filters">
+      <div v-for="(cuisine, index) in cuisines" :key="index" class="recipes-filters__item">
+        <input :id="cuisine.name" type="checkbox" :value="cuisine.name" @input="onCheckboxInput"><label :for="cuisine.name">{{ cuisine.name }}</label>
 
+      </div>
+    </div>
     <p>Liste des recettes :</p>
     <ul>
-      <li v-for="(recipe, index) in recipes" :key="index">
+      <li v-for="(recipe, index) in filteredRecipes" :key="index">
         <NuxtLink :to="`/recipe/${recipe.recipe_id}`">{{ recipe.title }}</NuxtLink></li>
     </ul>
   </main>
