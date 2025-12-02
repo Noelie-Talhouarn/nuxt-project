@@ -14,6 +14,14 @@ const { data: recipe, error } = await useAsyncData(
 )
 
 if (!recipe.value || error.value) throw new Error('Recipe not found')
+
+
+useHead({
+  title: recipe.value.title,
+  meta :[
+    { name: 'description',content: recipe.value.description }
+  ]
+})
 </script>
 
 <template>
