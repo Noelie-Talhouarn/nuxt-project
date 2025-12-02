@@ -22,11 +22,12 @@ if (!recipe.value || error.value) throw new Error('Recipe not found')
       <h1 as="h1" size="large">{{ recipe.title }}</h1>
       <p class="recipe-hero__description">{{ recipe.description }}</p>
       <div class="recipe-hero__image-wrapper">
-        <img
-          v-if="recipe.image_url"
-          :src="recipe.image_url"
-          :alt="recipe.title || 'Recipe image'"
-          class="recipe-hero__image"
+        <NuxtImg
+          :src="`/recipes/` + recipe.image_url"
+          alt="Image de recette"
+          width="1200"
+          height="800"
+          class="recipe__image"
         />
       </div>
     </section>
@@ -94,18 +95,6 @@ if (!recipe.value || error.value) throw new Error('Recipe not found')
     color: var(--color-primary);
   }
 
-  &__image-wrapper {
-    width: 100%;
-    overflow: hidden;
-    border-radius: rem(12);
-    margin-top: rem(20);
-  }
-
-  &__image {
-    width: 100%;
-    height: auto;
-    border-radius: rem(12);
-  }
 }
 
 .recipe-content {
