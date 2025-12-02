@@ -73,6 +73,15 @@ const displayRecipes = computed<Recipe[]>(() => {
 function onPageClick (index: number) {
   page.value = index
 }
+
+
+useHead({
+  title: 'Mes recettes | Accueil',
+  meta :[
+    { name: 'description',content: 'Page d\'accueil de mon site de recettes' }
+  ]
+})
+
 </script>
 
 <template>
