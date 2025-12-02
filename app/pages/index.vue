@@ -100,14 +100,8 @@ function onPageClick (index: number) {
     <MyLoginForm />
 
     <MyBackroundScroll />
-
-    <MyCards
-      image="https://example.com/chicken.jpg"
-      title="Savory Herb-Infused Chicken"
-      description="Indulge in the rich and savory symphony of flavors with our Savory Herb-Infused Chicken"
-      details="40 MIN • EASY PREP • 3 SERVES"
-      button-text="voir la recette"
-    />
+    
+  
     <input v-model="search" type="text">
     <div class="pages">
       <span
@@ -131,13 +125,10 @@ function onPageClick (index: number) {
         ><label :for="cuisine.name">{{ cuisine.name }}</label>
       </div>
     </div>
-    <p>Liste des recettes :</p>
-    <ul>
-      <li v-for="(recipe, index) in displayRecipes" :key="index">
-        <NuxtLink :to="`/recipe/${recipe.recipe_id}`">{{
-          recipe.title
-        }}</NuxtLink>
-      </li>
-    </ul>
+    <div class="recipes-grid">
+      <div v-for="(recipe, index) in displayRecipes" :key="index">
+        <MyCards :recipe="recipe" />
+      </div>
+    </div>
   </main>
 </template>
