@@ -28,4 +28,6 @@ await useAsyncData('my-recipes', () => {
     <h1>Dashboard</h1>
     <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
   </div>
+ 
+ <AddRecipiesForm></AddRecipiesForm>
 </template>
