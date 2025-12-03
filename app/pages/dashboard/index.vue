@@ -21,17 +21,31 @@ await useAsyncData('my-recipes', () => {
   })
 })
 
+const showForm = ref(false)
+
+function openForm () {
+  showForm.value = true
+}
+
+function closeForm () {
+  showForm.value = false
+}
+
 </script>
 
 <template>
   <section>
     <div class="p-dashboard">
       <h1>Dashboard</h1>
+      <MyButton v-if="!showForm" @click="openForm">
+        Créer une recette
+      </MyButton>
+
+      <AddRecipiesForm
+        v-if="showForm"
+        @close="closeForm"/>      
       <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
     </div>
-    <div>
-      <h1>ajouter une recette </h1>
-      <AddRecipiesForm />
-    </div>
+  
   </section>
 </template>
