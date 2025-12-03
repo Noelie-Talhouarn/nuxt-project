@@ -12,7 +12,7 @@ function onLogoutClick () {
 
 const config = useRuntimeConfig()
 
-const { data } = await useAsyncData('my-recipes', () => {
+await useAsyncData('my-recipes', () => {
   const cookie = useCookie('recipe_token')
   return $fetch(`${config.public.apiUrl}/api/recipes/my-recipes`, {
     headers: {
