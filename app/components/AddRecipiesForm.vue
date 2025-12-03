@@ -5,8 +5,9 @@ const payload = ref({
   image_url: '',
   cuisine_id: 0,
   goal_id: 0,
+  ingredient_id: '',
   DietaryInformation_id: 0,
-  AllergieInformation_id: 0
+  AllergiesInformation_id: 0
 })
 
 const config = useRuntimeConfig()
@@ -28,10 +29,11 @@ const allergies = ref<Allergy[]>(
   (await $fetch<{ data: Allergy[] }>(`${config.public.apiUrl}/api/allergies`)).data
 )
 
+
 const emit = defineEmits(['close'])
 
 async function onSubmit () {
-  if (!payload.value.title || !payload.value.description || !payload.value.image_url || !payload.value.goal_id || !payload.value.DietaryInformation_id || !payload.value.AllergieInformation_id) return 
+  if (!payload.value.title || !payload.value.description || !payload.value.image_url || !payload.value.goal_id || !payload.value.DietaryInformation_id || !payload.value.AllergiesInformation_id) return 
   try {
     await fetch(`${config.public.apiUrl}/api/recipes`, {
       method: 'POST',
@@ -57,7 +59,7 @@ console.log(payload.value)
 
  
   <form v-if="formVisible" @submit.prevent="onSubmit" >
-    <div>{{ payload }}
+    <div>
       <label for="title">titre</label>
       <input id="title" v-model="payload.title" type="text">
     </div>
@@ -71,7 +73,7 @@ console.log(payload.value)
     </div>
     <div>
       <label for="allergy">allergies</label>
-      <select id="goal" v-model="payload.AllergieInformation_id">
+      <select id="allergy" v-model="payload.AllergiesInformation_id">
         <option 
           v-for="allergy in allergies" 
           :key="allergy.allergy_id" 
