@@ -24,8 +24,14 @@ await useAsyncData('my-recipes', () => {
 </script>
 
 <template>
-  <div class="p-dashboard">
-    <h1>Dashboard</h1>
-    <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
-  </div>
+  <section>
+    <div class="p-dashboard">
+      <h1>Dashboard</h1>
+      <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
+    </div>
+    <div>
+      <h1>ajouter une recette </h1>
+      <AddRecipiesForm />
+    </div>
+  </section>
 </template>
