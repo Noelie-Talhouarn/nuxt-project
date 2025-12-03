@@ -12,14 +12,15 @@ function onLogoutClick () {
 
 const config = useRuntimeConfig()
 
-await useAsyncData('my-recipes', () => {
+const { data: myRecipes } = await useAsyncData<{ data: Recipe[] }>('my-recipes', () => {
   const cookie = useCookie('recipe_token')
   return $fetch(`${config.public.apiUrl}/api/recipes/my-recipes`, {
-    headers: {
-      Authorization: `Bearer ${cookie.value}`
-    }
+    headers: { Authorization: `Bearer ${cookie.value}` }
   })
 })
+
+const userRecipes = computed(() => myRecipes.value?.data || [])
+
 
 const showForm = ref(false)
 
@@ -30,6 +31,7 @@ function openForm () {
 function closeForm () {
   showForm.value = false
 }
+
 
 </script>
 
@@ -46,6 +48,14 @@ function closeForm () {
         @close="closeForm"/>      
       <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
     </div>
-  
+    <div v-if="userRecipes.length" class="recipes-grid">
+      <div v-for="recipe in userRecipes" :key="recipe.recipe_id">
+        <MyCards :recipe="recipe" />
+      </div>
+    </div>
+
+    <p v-else>Aucune recette pour le moment.</p>
+
+
   </section>
 </template>
