@@ -24,4 +24,5 @@ type recipeInstruction = {
 type fullRecipe = Recipe & {
   instructions: recipeInstruction[]
   ingredients: RecipeIngredient[]
+  user_id: number
 }

@@ -15,6 +15,47 @@ const { data: recipe, error } = await useAsyncData(
 
 if (!recipe.value || error.value) throw new Error('Recipe not found')
 
+const isOwner = computed(() => {
+  return recipe.value?.user_id === user.value?.user_id
+})
+
+async function deleteRecipe () {
+  if (!confirm('Voulez-vous vraiment supprimer cette recette ?')) return
+
+  try {
+    const token = useCookie('recipe_token').value
+    
+    await $fetch(`${config.public.apiUrl}/api/recipes/${route.params.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    // Retour au dashboard
+    navigateTo('/dashboard')
+
+  } catch (err) {
+    console.error(err)
+    alert('Impossible de supprimer la recette.')
+  }
+}
+
+const userCookie = useCookie('recipe_token')
+
+const user = computed(() => {
+  if (!userCookie.value) return null
+
+  try {
+    const payload = userCookie.value.split('.')[1]
+    if (!payload) return null
+
+    return JSON.parse(atob(payload))
+  } catch {
+    return null
+  }
+})
+
 
 useHead({
   title: recipe.value.title,
@@ -72,6 +113,14 @@ useHead({
           </ul>
         </div>
       </aside> 
+      <MyButton 
+        v-if="isOwner" 
+        class="delete-btn"
+        @click="deleteRecipe"
+      >
+        Supprimer la recette
+      </MyButton>
+
     </section>
   </div>
 </template>
