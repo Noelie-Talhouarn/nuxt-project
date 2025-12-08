@@ -17,6 +17,9 @@ export default defineNuxtConfig({
   },
   
   vite: {
+    optimizeDeps: {
+      include: ['react-compiler-runtime', 'react', 'react-dom']
+    },
     css: {
       preprocessorOptions: {
         scss: {
