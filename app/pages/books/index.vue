@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { SanityBook } from '~/types/api/cms/book';
+import type { SanityBook } from '~/types/api/cms/book'
 
 
 const BOOKS_QUERY = groq`*[
