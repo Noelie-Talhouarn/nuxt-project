@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { SanityDocument } from '@sanity/client'
+import type { SanityBook } from '~/types/api/cms/book'
 
 const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, cover, body, author->{ name }, categories[] -> {...} }`
 const { params } = useRoute()
 
-const { data: book } = await useLazySanityQuery<SanityDocument>(BOOK_QUERY, params)
+const { data: book } = await useLazySanityQuery<SanityBook>(BOOK_QUERY, params)
 const { urlFor } = useSanityImage()
 
 </script>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconFacebook from './icons/IconFacebook.vue'
 import IconInsta from './icons/IconInsta.vue'
-import IconLogo from './icons/IconLogo.vue'
+import IconLogo2 from './icons/IconLogo2.vue'
 import IconTiktok from './icons/IconTiktok.vue'
 import IconYoutube from './icons/IconYoutube.vue'
 </script>
@@ -11,7 +11,7 @@ import IconYoutube from './icons/IconYoutube.vue'
     <nav class="footer__nav-container">
     
       <a class="footer__logo" href="/">
-        <IconLogo />
+        <IconLogo2 />
       </a>
 
    
@@ -37,7 +37,7 @@ import IconYoutube from './icons/IconYoutube.vue'
 
 <style lang="scss">
 .footer {
-  background: var(--color-primary);
+  background: var(--color-secondary);
 
   padding: rem(20) rem(15);
   display: flex;
