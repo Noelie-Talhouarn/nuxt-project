@@ -1,6 +1,6 @@
 <template>
   <main class="ly-default">
-    <MyHeader />
+    <HeaderPage />
     <slot />
     <MyFooter />
   </main>

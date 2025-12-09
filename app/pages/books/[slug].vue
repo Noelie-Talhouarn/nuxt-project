@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import type { SanityDocument } from '@sanity/client'
+import type { SanityBook } from '~/types/api/cms/book'
 
 const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, cover, body, author->{ name }, categories[] -> {...} }`
 const { params } = useRoute()
 
-const { data: book } = await useLazySanityQuery<SanityDocument>(BOOK_QUERY, params)
+const { data: book } = await useLazySanityQuery<SanityBook>(BOOK_QUERY, params)
 const { urlFor } = useSanityImage()
 
 </script>
@@ -22,7 +22,7 @@ const { urlFor } = useSanityImage()
       class="aspect-video rounded-xl"
       width="550"
       height="310"
-    />
+    >
     <h1 v-if="book.title" class="text-4xl font-bold mb-8">{{ book.title }}</h1>
     <div class="prose">
       <p v-if="book.publishedAt">

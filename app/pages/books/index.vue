@@ -25,7 +25,7 @@ const { urlFor } = useSanityImage()
           class="aspect-video rounded-xl"
           width="550"
           height="310"
-        />
+        >
         <nuxt-link :to="`/books/${book.slug.current}`">
           <h2 class="text-xl font-semibold">{{ book.title }}</h2>
           <p>{{ new Date(book.publishedAt).toLocaleDateString() }}</p>
