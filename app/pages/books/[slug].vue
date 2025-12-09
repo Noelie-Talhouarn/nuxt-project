@@ -22,7 +22,7 @@ const { urlFor } = useSanityImage()
       class="aspect-video rounded-xl"
       width="550"
       height="310"
-    />
+    >
     <h1 v-if="book.title" class="text-4xl font-bold mb-8">{{ book.title }}</h1>
     <div class="prose">
       <p v-if="book.publishedAt">

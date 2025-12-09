@@ -46,10 +46,10 @@ function logout () {
       <button 
         class="header__burger"
         :class="{ 'header__burger--active': activeMenu }"
-        @click="toggleMenu"
         aria-label="Menu"
+        @click="toggleMenu"
       >
-        <span></span><span></span><span></span>
+        <span/><span/><span/>
       </button>
 
       <!-- NAVIGATION -->
