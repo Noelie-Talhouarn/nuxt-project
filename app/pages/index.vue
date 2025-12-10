@@ -29,20 +29,6 @@ const search = ref('')
 
 const filters = ref<Cuisine['name'][]>([])
 
-function onCheckboxInput ($event: Event) {
-  const target = $event.target
-  if (!(target instanceof HTMLInputElement)) return
-  page.value = 1
-  const value = target.value
-  if (!filters.value.includes(value)) {
-    filters.value.push(value)
-  } else {
-    const index = filters.value.findIndex(
-      (filterValue) => filterValue === value
-    )
-    filters.value.splice(index, 1)
-  }
-}
 
 const filteredRecipes = computed<Recipe[]>(() => {
   if (!recipes.value) return []
@@ -62,9 +48,9 @@ const filteredRecipes = computed<Recipe[]>(() => {
 })
 
 
-const totalPages = computed(() => {
-  return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
-})
+// const totalPages = computed(() => {
+//   return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
+// })
 
 const displayRecipes = computed<Recipe[]>(() => {
   if (!filteredRecipes.value) return []
@@ -74,9 +60,9 @@ const displayRecipes = computed<Recipe[]>(() => {
   )
 })
 
-function onPageClick (index: number) {
-  page.value = index
-}
+// function onPageClick (index: number) {
+//   page.value = index
+// }
 
 const HOME_QUERY = groq`*[_type == "home"][0]`
 
