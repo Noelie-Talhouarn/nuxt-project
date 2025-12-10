@@ -121,47 +121,49 @@ console.log(home.value)
     <MyLoginForm />
 
     <MyBackroundScroll />
-    <MyFiltre
-      v-if="cuisines"
-      :cuisines="cuisines"
-      v-model="filters"
-      :search="search"
-      @update:search="search = $event"
-      input-size="large"
-    />
+    <div v-if="home">
+      <MyTitle as="h2">{{ home.hero?.subtitle2 }}</MyTitle>
+      <MyFiltre
+        v-if="cuisines"
+        :cuisines="cuisines"
+        v-model="filters"
+        :search="search"
+        @update:search="search = $event"
+        input-size="large"
+      />
 
-
-    <div class="recipes-grid">
-      <div v-for="(recipe, index) in displayRecipes" :key="index">
-        <MyCards :recipe="recipe" />
+      <div class="recipes-grid">
+        <div v-for="(recipe, index) in displayRecipes" :key="index">
+          <MyCards :recipe="recipe" />
+        </div>
       </div>
-    </div>
-    <div class="pagination" v-if="totalPages > 1">
-      <MyButton
-        variant="carousel"
-        :disabled="page === 1"
-        @click="page--"
-      >
-        Précédent
-      </MyButton>
+      <div class="pagination" v-if="totalPages > 1">
+        <MyButton
+          variant="carousel"
+          :disabled="page === 1"
+          @click="page--"
+        >
+          Précédent
+        </MyButton>
 
-      <MyButton
-        v-for="n in totalPages"
-        variant="carousel"
-        :key="n"
-        :class="{ active: page === n }"
-        @click="onPageClick(n)"
-      >
-        {{ n }}
-      </MyButton>
+        <MyButton
+          v-for="n in totalPages"
+          variant="carousel"
+          :key="n"
+          :class="{ active: page === n }"
+          @click="onPageClick(n)"
+        >
+          {{ n }}
+        </MyButton>
 
-      <MyButton
-        variant="carousel"
-        :disabled="page === totalPages"
-        @click="page++"
-      >
-        Suivant
-      </MyButton>
+        <MyButton
+          variant="carousel"
+          :disabled="page === totalPages"
+          @click="page++"
+        >
+          Suivant
+        </MyButton>
+      </div>
     </div>
 
   </main>
@@ -169,7 +171,8 @@ console.log(home.value)
 
 <style lang="scss">
 .recipes-grid {
-  display: grid;
+  display: flex;
+  justify-content: center;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-top: 2rem;
