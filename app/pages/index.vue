@@ -48,9 +48,9 @@ const filteredRecipes = computed<Recipe[]>(() => {
 })
 
 
-// const totalPages = computed(() => {
-//   return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
-// })
+const totalPages = computed(() => {
+  return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
+})
 
 const displayRecipes = computed<Recipe[]>(() => {
   if (!filteredRecipes.value) return []
@@ -60,9 +60,9 @@ const displayRecipes = computed<Recipe[]>(() => {
   )
 })
 
-// function onPageClick (index: number) {
-//   page.value = index
-// }
+function onPageClick (index: number) {
+  page.value = index
+}
 
 const HOME_QUERY = groq`*[_type == "home"][0]`
 
@@ -136,5 +136,57 @@ console.log(home.value)
         <MyCards :recipe="recipe" />
       </div>
     </div>
+    <div class="pagination" v-if="totalPages > 1">
+      <MyButton
+        variant="carousel"
+        :disabled="page === 1"
+        @click="page--"
+      >
+        Précédent
+      </MyButton>
+
+      <MyButton
+        v-for="n in totalPages"
+        variant="carousel"
+        :key="n"
+        :class="{ active: page === n }"
+        @click="onPageClick(n)"
+      >
+        {{ n }}
+      </MyButton>
+
+      <MyButton
+        variant="carousel"
+        :disabled="page === totalPages"
+        @click="page++"
+      >
+        Suivant
+      </MyButton>
+    </div>
+
   </main>
 </template>
+
+<style lang="scss">
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-top: 2rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;  // centre horizontalement
+  align-items: center;      // optionnel : centre verticalement
+  gap: 10px;
+  margin: 2rem 0;
+}
+
+
+</style>

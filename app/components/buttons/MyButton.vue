@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   href?: string
-  variant?: 'default' | 'purple' | 'transparent'
+  variant?: 'default' | 'purple' | 'transparent' | 'carousel'
   size?: 'default' | 'small' | 'medium' | 'large'
 }>()
 
@@ -20,6 +20,7 @@ function handleClickAndHover () {
     :class="{
       '-purple': variant === 'purple',
       '-transparent': variant === 'transparent',
+      '-carousel': variant === 'carousel',
       small: props.size === 'small',
       medium: props.size === 'medium',
       large: props.size === 'large',
@@ -35,6 +36,8 @@ function handleClickAndHover () {
     :class="{
       '-purple': variant === 'purple',
       '-transparent': variant === 'transparent',
+      '-carousel': variant === 'carousel',
+
       small: props.size === 'small',
       medium: props.size === 'medium',
       large: props.size === 'large',
@@ -58,6 +61,7 @@ function handleClickAndHover () {
   border-radius: rem(20);
   text-decoration: none;
   font-size: var(--font-size-base);
+  cursor: pointer;
   &:hover {
     --button-color: var(--color-primary);
     --button-bg-color: black;
@@ -73,7 +77,7 @@ function handleClickAndHover () {
     --button-bg-color: var(--color-secondary);
 
     border: none;
-    color: #ffffff;
+    color: var(  --color-text-btn);
   }
 
   &.-transparent {
@@ -81,6 +85,16 @@ function handleClickAndHover () {
     border: rem(2) solid var(--color-secondary);
 
     color: var(--color-primary);
+  }
+    &.-carousel {
+    --button-bg-color: var(--color-third);
+    border: rem(2) solid var(--color-secondary);
+
+    color: var(--color-primary);
+    &.active {
+      background-color: var(--color-secondary);
+      color: var(  --color-text-btn);
+    }
   }
   &.small {
     padding: rem(5) rem(10);
