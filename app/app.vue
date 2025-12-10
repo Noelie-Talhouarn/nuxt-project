@@ -12,7 +12,7 @@
 <style lang="scss">
 .main {
   position: relative;
-  padding-top: rem(40);
+  padding-top: rem(80);
 }
 
 </style>
