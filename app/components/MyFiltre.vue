@@ -1,8 +1,9 @@
 <script setup lang="ts">
 const props = defineProps<{
   cuisines: Cuisine[]
-  modelValue: string[]      
-  search?: string           
+  modelValue: string[]
+  search: string
+  inputSize?: 'default' | 'small' | 'medium' | 'large'
 }>()
 
 const emit = defineEmits([
@@ -10,7 +11,12 @@ const emit = defineEmits([
   'update:search'
 ])
 
-// Toggle d’un filtre (checkbox)
+// --- Mise à jour de la recherche ---
+function onSearchInput (value: string | undefined) {
+  emit('update:search', value ?? '')
+}
+
+// --- Toggle checkbox ---
 function toggleFilter (value: string) {
   const newFilters = [...props.modelValue]
 
@@ -27,11 +33,11 @@ function toggleFilter (value: string) {
 
     <!-- 🔎 Barre de recherche -->
     <MyInput
-      v-if="search !== undefined"
+      label="Rechercher une recette"
       type="text"
-      :value="search"
-      @input="emit('update:search', ($event.target as HTMLInputElement).value)"
-      placeholder="Rechercher..."
+      :size="inputSize"
+      :model-value="search"
+      @update:model-value="onSearchInput"
     />
 
     <!-- 🏷️ Liste des filtres -->
@@ -58,35 +64,38 @@ function toggleFilter (value: string) {
 .filters {
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
-  margin: 2rem 0;
+  --button-color: var(--color-text-btn);
+  --button-bg-color: var(--color-primary);
+  --button-border-color: var(--color-primary);
+  padding: rem(8) rem(20);
+  color: var(--button-color);
+  border-radius: rem(20);
+  text-decoration: none;
+  font-size: var(--font-size-base);
+
 
   &__list {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
+      padding-top: rem(20);
+
   }
 
   &__item {
     display: flex;
     align-items: center;
     gap: 6px;
-     --button-color: var(--color-text-btn);
-  --button-bg-color: var(--color-secondary);
-  padding: rem(8) rem(20);
-  background: var(--button-bg-color);
-  color: var(--button-color);
-  border-radius: rem(20);
-  text-decoration: none;
-  font-size: var(--font-size-base);
-  cursor: pointer;
-
+    
+    padding: rem(8) rem(20);
+    background: var(--color-secondary);
+    border-radius: rem(20);
+    cursor: pointer;
   }
 
   &__checkbox {
-    accent-color: var(--color-secondary);
+    accent-color: var(--color-primary);
   }
-
 }
 </style>
