@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MyFiltre from '~/components/MyFiltre.vue'
 import type { SanityHome } from '~/types/api/cms/home'
 
 
@@ -28,20 +29,6 @@ const search = ref('')
 
 const filters = ref<Cuisine['name'][]>([])
 
-function onCheckboxInput ($event: Event) {
-  const target = $event.target
-  if (!(target instanceof HTMLInputElement)) return
-  page.value = 1
-  const value = target.value
-  if (!filters.value.includes(value)) {
-    filters.value.push(value)
-  } else {
-    const index = filters.value.findIndex(
-      (filterValue) => filterValue === value
-    )
-    filters.value.splice(index, 1)
-  }
-}
 
 const filteredRecipes = computed<Recipe[]>(() => {
   if (!recipes.value) return []
@@ -61,9 +48,9 @@ const filteredRecipes = computed<Recipe[]>(() => {
 })
 
 
-const totalPages = computed(() => {
-  return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
-})
+// const totalPages = computed(() => {
+//   return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
+// })
 
 const displayRecipes = computed<Recipe[]>(() => {
   if (!filteredRecipes.value) return []
@@ -73,9 +60,9 @@ const displayRecipes = computed<Recipe[]>(() => {
   )
 })
 
-function onPageClick (index: number) {
-  page.value = index
-}
+// function onPageClick (index: number) {
+//   page.value = index
+// }
 
 const HOME_QUERY = groq`*[_type == "home"][0]`
 
@@ -93,6 +80,7 @@ const { urlFor } = useSanityImage()
 // })
 
 console.log(home.value)
+
 
 </script>
 
@@ -133,31 +121,14 @@ console.log(home.value)
     <MyLoginForm />
 
     <MyBackroundScroll />
-    
-  
-    <input v-model="search" type="text">
-    <div class="pages">
-      <span
-        v-for="n in totalPages"
-        :key="`page-${n}`"
-        @click="onPageClick(n)"
-      >{{ n }}</span
-      >
-    </div>
-    <div class="recipes-filters">
-      <div
-        v-for="(cuisine, index) in cuisines"
-        :key="index"
-        class="recipes-filters__item"
-      >
-        <input
-          :id="cuisine.name"
-          type="checkbox"
-          :value="cuisine.name"
-          @input="onCheckboxInput"
-        ><label :for="cuisine.name">{{ cuisine.name }}</label>
-      </div>
-    </div>
+    <MyFiltre
+      :cuisines="cuisines ?? []"
+      v-model="filters"
+      :search="search"
+      @update:search="search = $event"
+    />
+
+
     <div class="recipes-grid">
       <div v-for="(recipe, index) in displayRecipes" :key="index">
         <MyCards :recipe="recipe" />
