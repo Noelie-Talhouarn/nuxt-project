@@ -122,10 +122,12 @@ console.log(home.value)
 
     <MyBackroundScroll />
     <MyFiltre
-      :cuisines="cuisines ?? []"
+      v-if="cuisines"
+      :cuisines="cuisines"
       v-model="filters"
       :search="search"
       @update:search="search = $event"
+      input-size="large"
     />
 
 
