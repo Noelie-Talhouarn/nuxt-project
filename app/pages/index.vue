@@ -91,9 +91,11 @@ console.log(home.value)
       v-if="home" 
       class="hero"
       :style="{
-        backgroundImage: home.hero?.image? `url(${urlFor(home.hero.image).width(1600).height(800).url()})`
+        backgroundImage: home?.hero?.image
+          ? `url(${urlFor(home.hero.image)?.width(1600).height(800).url()})`
           : 'none'
       }"
+
     >
       <div class="hero__content">
         <MyTitle as="h1" size="large" class="hero__title">{{ home.hero?.title }}</MyTitle>
