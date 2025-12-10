@@ -150,7 +150,7 @@ console.log(home.value)
         variant="carousel"
         :key="n"
         :class="{ active: page === n }"
-         @click="onPageClick(n)"
+        @click="onPageClick(n)"
       >
         {{ n }}
       </MyButton>
