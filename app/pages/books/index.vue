@@ -10,27 +10,49 @@ const BOOKS_QUERY = groq`*[
 
 const { data: books } = await useLazySanityQuery<SanityBook[]>(BOOKS_QUERY)
 
-const { urlFor } = useSanityImage()
 </script>
 
 <template>
-  <main class="container mx-auto min-h-screen max-w-3xl p-8">
-    <h1 class="text-4xl font-bold mb-8">Books</h1>
-    <ul class="flex flex-col gap-y-4">
-      <li v-for="book in books" :key="book._id" class="hover:underline">
-        <img
-          v-if="book.cover"
-          :src="urlFor(book.cover)?.width(550).height(310).url()"
-          :alt="book?.title"
-          class="aspect-video rounded-xl"
-          width="550"
-          height="310"
-        >
-        <nuxt-link :to="`/books/${book.slug.current}`">
-          <h2 class="text-xl font-semibold">{{ book.title }}</h2>
-          <p>{{ new Date(book.publishedAt).toLocaleDateString() }}</p>
-        </nuxt-link>
-      </li>
-    </ul>
+  <main class="books">
+    <MyTitle class="books__title" as="h1" size="medium">Nos Livres de recettes</MyTitle>
+
+    <div class="books__grid">
+      <MyCardsBooks
+        v-for="book in books"
+        :key="book._id"
+        :book="book"
+      />
+    </div>
   </main>
 </template>
+
+<style lang="scss">
+.books {
+  max-width: rem(1200);
+  margin: 0 auto;
+  padding: rem(30) rem(15);
+
+  &__title {
+    text-align: center;
+    margin-bottom: rem(30);
+    color: var(--color-secondary);
+    font-weight: bold;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: rem(25);
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: rem(20);
+    }
+  }
+}
+</style>
