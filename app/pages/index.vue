@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MyTitle from '~/components/MyTitle.vue'
 import MyFiltre from '~/components/MyFiltre.vue'
 import type { SanityHome } from '~/types/api/cms/home'
 
@@ -86,43 +87,22 @@ console.log(home.value)
 
 <template>
   <main>
-    <h1>HP</h1>
-    <MyButton href="/about" variant="purple">button</MyButton>
-    <MyButton href="/about" variant="transparent">button</MyButton>
-    <MyButton href="/about" size="small">button</MyButton>
-    <MyButton href="/about" size="medium">button</MyButton>
-    <MyButton href="/about" size="large">button</MyButton>
-    <MyButton
-      @click-and-hover="
-        () => {
-          console.log('Button Clicked');
-        }
-      "
-    >button</MyButton
+    <section 
+      v-if="home" 
+      class="hero"
+      :style="{
+        backgroundImage: home.hero?.image? `url(${urlFor(home.hero.image).width(1600).height(800).url()})`
+          : 'none'
+      }"
     >
+      <div class="hero__content">
+        <MyTitle as="h1" size="large" class="hero__title">{{ home.hero?.title }}</MyTitle>
+        <p class="hero__subtitle">{{ home.hero?.subtitle }}</p>
+      </div>
+    </section>
+
     <div v-if="home">
-      <MyTitle as="h1">{{ home.hero?.title }}</MyTitle>
-      <p>{{ home.hero.subtitle }}</p>
-      <img 
-        v-if="home.hero.image"
-        :src="urlFor(home.hero.image)?.width(550).height(310).url()"
-        :alt="home?.title"
-        width="550"
-        height="310"
-      />
-    </div>
-    
-
-    <!-- <MyTitle as="h1" size="large"> Libérez l'excellence culinaire </MyTitle>
-    <MyTitle as="h2" size="medium"> Libérez l'excellence culinaire </MyTitle>
-    <MyTitle as="h3" size="small"> Libérez l'excellence culinaire </MyTitle> -->
-
-    <MyForm />
-    <MyLoginForm />
-
-    <MyBackroundScroll />
-    <div v-if="home">
-      <MyTitle as="h2">{{ home.hero?.subtitle2 }}</MyTitle>
+      <MyTitle as="h2" size="medium" class="hero__subtitle2">{{ home.hero?.subtitle2 }}</MyTitle>
       <MyFiltre
         v-if="cuisines"
         :cuisines="cuisines"
@@ -170,24 +150,104 @@ console.log(home.value)
 </template>
 
 <style lang="scss">
-.recipes-grid {
-  display: flex;
-  justify-content: center;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-top: 2rem;
 
+.hero {
+  position: relative;
+  height: rem(400);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: rem(1);
+
+    @media (min-width: 768px) {
+    height: 70vh;
+  }
+
+  @media (min-width: 1024px) {
+    height: 80vh;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2; // au-dessus de l’image
+    color: var(--color-text-btn);
+  }
+
+  &__title {
+    margin-bottom: rem(2);
+
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-text2);
+    color: var(--color-text-btn);
+    opacity: 0.9;
+    margin-top: rem(1);
+
+     @media (max-width: 480px) {
+      font-size: rem(14);
+    }
+  }
+     
+
+    &__subtitle2 {
+margin-left: rem(17);  
+color: var(--color-secondary);
+padding: rem(10);
+padding-top: rem(20);
+
+@media (max-width: 480px) {
+      font-size: rem(30);
+    }
+}
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(rem(250), 1fr)); // 2 colonnes équilibrées
+  gap: rem(20);
+  padding-bottom: rem(20);
+  margin-top: rem(20);
+
+  /* CENTRER LES 2 COLONNES EN DESKTOP */
+  justify-content: center;
+
+  /* Pour éviter que les cards s'étalent trop */
+  max-width: rem(900);
+  margin-left: auto;
+  margin-right: auto;
+
+  /* MOBILE */
   @media (max-width: 600px) {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;  // 1 card
+    justify-items: center;       // centre la card
+    max-width: 100%;
   }
 }
 
 /* Pagination */
 .pagination {
   display: flex;
-  justify-content: center;  // centre horizontalement
+  justify-content: center;
+    flex-wrap: wrap;
+  // centre horizontalement
   align-items: center;      // optionnel : centre verticalement
-  gap: 10px;
+  gap: rem(5);
   margin: 2rem 0;
 }
 
