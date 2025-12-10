@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SanityBook } from '~/types/api/cms/book'
 
-const props = defineProps<{
+const { book } = defineProps<{
   book: SanityBook
 }>()
 
