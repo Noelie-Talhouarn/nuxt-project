@@ -22,15 +22,26 @@ const { data: myRecipes } = await useAsyncData<{ data: Recipe[] }>('my-recipes',
 
 const userRecipes = computed(() => myRecipes.value?.data || [])
 const filteredUserRecipes = computed(() => {
-  // Aucune recette ?
   if (!userRecipes.value) return []
 
-  // Aucun filtre → retourne tout
-  if (!filters.value.length) return userRecipes.value
+  let results = userRecipes.value
 
-  return userRecipes.value.filter(recipe =>
-    filters.value.includes(recipe.cuisine_name)
-  )
+  // --- Filtres cuisines ---
+  if (filters.value.length) {
+    results = results.filter(recipe =>
+      filters.value.includes(recipe.cuisine_name)
+    )
+  }
+
+  // --- Recherche ---
+  if (search.value.trim().length) {
+    const keyword = search.value.toLowerCase()
+    results = results.filter(recipe =>
+      recipe.title.toLowerCase().includes(keyword)
+    )
+  }
+
+  return results
 })
 
 
@@ -70,7 +81,7 @@ const { data: cuisines } = await useAsyncData('cuisines', async () => {
   return data
 })
 
-
+const search = ref('')
 
 
 const isLoggedIn = computed(() => !!user.value)
@@ -97,11 +108,14 @@ const isLoggedIn = computed(() => !!user.value)
         @close="closeForm"/>      
       <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
     </div>
-    <MyFiltre 
+    <MyFiltre
       v-if="cuisines"
       :cuisines="cuisines"
       v-model="filters"
+      :search="search"
+      @update:search="search = $event"
     />
+
     <div v-if="filteredUserRecipes.length" class="recipes-grid">
       <div v-for="recipe in filteredUserRecipes" :key="recipe.recipe_id">
 

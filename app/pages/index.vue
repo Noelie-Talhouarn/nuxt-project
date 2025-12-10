@@ -135,11 +135,13 @@ console.log(home.value)
     <MyLoginForm />
 
     <MyBackroundScroll />
-    <MyFiltre 
-      v-if="cuisines"
-      :cuisines="cuisines"
+    <MyFiltre
+      :cuisines="cuisines ?? []"
       v-model="filters"
+      :search="search"
+      @update:search="search = $event"
     />
+
 
     <div class="recipes-grid">
       <div v-for="(recipe, index) in displayRecipes" :key="index">
