@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { SanitySiteSettings } from '~/types/api/cms/profilSetting'
 const activeMenu = ref(false)
 function toggleMenu () {
   activeMenu.value = !activeMenu.value
@@ -6,6 +7,14 @@ function toggleMenu () {
 function closeMenu () {
   activeMenu.value = false
 }
+
+defineProps<{
+  logo: SanitySiteSettings['logo']
+  navigation: SanitySiteSettings['navigation']
+}>()
+
+const { urlFor } = useSanityImage()
+
 
 // ============================
 // AUTH avec JWT dans le cookie
@@ -38,9 +47,10 @@ function logout () {
     <div class="header__container">
 
       <!-- LOGO -->
-      <NuxtLink to="/" class="header__logo" @click="closeMenu">
-        <IconLogo2 class="header__logo-icon" />
+      <NuxtLink to="/">
+        <img v-if="logo && urlFor(logo)" :src="urlFor(logo)?.url()" alt="" >
       </NuxtLink>
+          
 
       <!-- BOUTON MENU MOBILE -->
       <button 
@@ -59,19 +69,11 @@ function logout () {
         @click.self="closeMenu"
       >
 
-        <ul class="header__menu">
-          <li class="header__item">
-            <NuxtLink class="header__link" to="/" @click="closeMenu">Accueil</NuxtLink>
-          </li>
-
-          <li class="header__item">
-            <NuxtLink class="header__link" to="/recipes" @click="closeMenu">Recettes</NuxtLink>
-          </li>
-
-          <li v-if="isLoggedIn">
-            <MyButton href="/dashboard" @click="closeMenu">
-              Dashboard
-            </MyButton>
+        <ul class="header__menu header-list">
+          <li v-for="(item, index) in navigation" :key="index">
+            <NuxtLink :to="item.url">
+              {{ item.label }}
+            </NuxtLink>
           </li>
         </ul>
 

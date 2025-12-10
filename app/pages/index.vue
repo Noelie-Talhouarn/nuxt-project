@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import type { SanityHome } from '~/types/api/cms/home'
+
+
 const config = useRuntimeConfig()
 
 const [{ data: recipes, error }, { data: cuisines }] = await Promise.all([
@@ -74,13 +77,22 @@ function onPageClick (index: number) {
   page.value = index
 }
 
+const HOME_QUERY = groq`*[_type == "home"][0]`
 
-useHead({
-  title: 'Mes recettes | Accueil',
-  meta :[
-    { name: 'description',content: 'Page d\'accueil de mon site de recettes' }
-  ]
-})
+const { data: home } = await useLazySanityQuery<SanityHome>(HOME_QUERY)
+const { urlFor } = useSanityImage()
+
+
+// useHead({
+//   title: data.value?.title ?? 'Titre du site',
+//   meta :[
+//     { name: 'description', 
+//       content: data.value?.description ?? 'Description du site' 
+//     }
+//   ]
+// })
+
+console.log(home.value)
 
 </script>
 
@@ -100,10 +112,22 @@ useHead({
       "
     >button</MyButton
     >
+    <div v-if="home">
+      <MyTitle as="h1">{{ home.hero?.title }}</MyTitle>
+      <p>{{ home.hero.subtitle }}</p>
+      <img 
+        v-if="home.hero.image"
+        :src="urlFor(home.hero.image)?.width(550).height(310).url()"
+        :alt="home?.title"
+        width="550"
+        height="310"
+      />
+    </div>
+    
 
-    <MyTitle as="h1" size="large"> Libérez l'excellence culinaire </MyTitle>
+    <!-- <MyTitle as="h1" size="large"> Libérez l'excellence culinaire </MyTitle>
     <MyTitle as="h2" size="medium"> Libérez l'excellence culinaire </MyTitle>
-    <MyTitle as="h3" size="small"> Libérez l'excellence culinaire </MyTitle>
+    <MyTitle as="h3" size="small"> Libérez l'excellence culinaire </MyTitle> -->
 
     <MyForm />
     <MyLoginForm />

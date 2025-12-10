@@ -1,27 +1,41 @@
 <script setup lang="ts">
+import type { SanitySiteSettings } from '~/types/api/cms/profilSetting'
+
 import IconFacebook from './icons/IconFacebook.vue'
 import IconInsta from './icons/IconInsta.vue'
-import IconLogo2 from './icons/IconLogo2.vue'
+// import IconLogo2 from './icons/IconLogo2.vue'
 import IconTiktok from './icons/IconTiktok.vue'
 import IconYoutube from './icons/IconYoutube.vue'
+
+defineProps<{
+  logo: SanitySiteSettings['logo']
+  navigation: SanitySiteSettings['navigation']
+}>()
+
+const { urlFor } = useSanityImage()
+
 </script>
 
 <template>
   <footer class="footer">
     <nav class="footer__nav-container">
     
-      <a class="footer__logo" href="/">
-        <IconLogo2 />
-      </a>
-
-   
+      <NuxtLink to="/">
+        <img v-if="logo && urlFor(logo)" :src="urlFor(logo)?.url()" alt="" >
+      </NuxtLink>
       <ul class="footer__nav">
-        <li class="footer__nav-item"><a href="/">Accueil</a></li>
-        <li class="footer__nav-item"><a href="/">Recettes</a></li>
-        <li class="footer__nav-item"><a href="/">A propos</a></li>
+        <li 
+          v-for="(item, index) in navigation" 
+          :key="index"
+          class="footer__nav-item"
+        >
+          <NuxtLink :to="item.url">
+            {{ item.label }}
+          </NuxtLink>
+        </li>
       </ul>
 
-    
+
       <ul class="footer__social">
         <li><a href="/"><IconTiktok /></a></li>
         <li><a href="/"><IconFacebook /></a></li>
