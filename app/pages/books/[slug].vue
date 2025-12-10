@@ -14,7 +14,7 @@ const { urlFor } = useSanityImage()
     v-if="book"
     class="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4"
   >
-    <a href="/" class="hover:underline">&larr; Back to books</a>
+    <a href="/books" class="hover:underline">&larr; Back to books</a>
     <img
       v-if="book.cover"
       :src="urlFor(book.cover)?.width(550).height(310).url()"

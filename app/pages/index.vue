@@ -116,7 +116,7 @@ console.log(home.value)
 
       <div class="recipes-grid">
         <div v-for="(recipe, index) in displayRecipes" :key="index">
-          <MyCards :recipe="recipe" />
+          <MyCardsRecipe :recipe="recipe" />
         </div>
       </div>
       <div class="pagination" v-if="totalPages > 1">
@@ -192,7 +192,6 @@ console.log(home.value)
 
   &__title {
     margin-bottom: rem(2);
-
   }
 
   &__subtitle {
