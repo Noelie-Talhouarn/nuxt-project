@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MyFiltre from '~/components/MyFiltre.vue'
 import type { SanityHome } from '~/types/api/cms/home'
 
 
@@ -94,6 +95,7 @@ const { urlFor } = useSanityImage()
 
 console.log(home.value)
 
+
 </script>
 
 <template>
@@ -133,31 +135,12 @@ console.log(home.value)
     <MyLoginForm />
 
     <MyBackroundScroll />
-    
-  
-    <input v-model="search" type="text">
-    <div class="pages">
-      <span
-        v-for="n in totalPages"
-        :key="`page-${n}`"
-        @click="onPageClick(n)"
-      >{{ n }}</span
-      >
-    </div>
-    <div class="recipes-filters">
-      <div
-        v-for="(cuisine, index) in cuisines"
-        :key="index"
-        class="recipes-filters__item"
-      >
-        <input
-          :id="cuisine.name"
-          type="checkbox"
-          :value="cuisine.name"
-          @input="onCheckboxInput"
-        ><label :for="cuisine.name">{{ cuisine.name }}</label>
-      </div>
-    </div>
+    <MyFiltre 
+      v-if="cuisines"
+      :cuisines="cuisines"
+      v-model="filters"
+    />
+
     <div class="recipes-grid">
       <div v-for="(recipe, index) in displayRecipes" :key="index">
         <MyCards :recipe="recipe" />
