@@ -17,8 +17,7 @@ const cookie = useCookie<string | null>('recipe_token')
 type UserApiResponse = ApiResponse<User>
 
 const {
-  data: userResponse,
-  refresh: refreshUser
+  data: userResponse
 } = await useAsyncData<UserApiResponse | null>('user-profile', async () => {
   if (!cookie.value) return null
 
