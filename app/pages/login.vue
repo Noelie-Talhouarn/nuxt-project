@@ -1,16 +1,17 @@
 <script setup lang="ts">
-
 const email = ref('')
 const password = ref('')
+const errorMessage = ref('')
 
 const config = useRuntimeConfig()
 
-async function onSubmit (){
-  try{
-    console.log('=> Api call to login')
-    const response = await fetch(`${config.public.apiUrl}/api/users/login`,{
+async function onSubmit () {
+  errorMessage.value = ''
+
+  try {
+    const response = await fetch(`${config.public.apiUrl}/api/users/login`, {
       method: 'POST',
-      headers:{
+      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
@@ -22,35 +23,120 @@ async function onSubmit (){
 
     const json = await response.json()
 
-  
-    const token = json.data.token
+    if (!json.success) {
+      errorMessage.value = 'Email ou mot de passe incorrect ❌'
+      return
+    }
 
+    const token = json.data.token
     const cookie = useCookie('recipe_token')
     cookie.value = token
 
-    await navigateTo('/dashboard')
+    navigateTo('/dashboard')
 
-    //redirect to dashboard
-
-    console.log(token)
   } catch (err) {
-    console.log(err)
+    console.error(err)
+    errorMessage.value = 'Erreur serveur ❌'
   }
 }
 </script>
 
 <template>
+  <section class="login">
+    <MyTitle as="h1" size="large" class="login__title">
+      Connexion
+    </MyTitle>
 
-  <div>
-    <h1>Connexion</h1>
-    <form action="" @submit.prevent="onSubmit">
-      <label for="email">email</label>
-      <MyInput v-model="email" type="text" />
-      <label for="password">password</label>
-      <MyInput v-model="password" type="password" />
-      <MyButton type="submit">se connecter</MyButton>
+    <form class="login__form" @submit.prevent="onSubmit">
+
+      <p v-if="errorMessage" class="login__message login__message--error">
+        {{ errorMessage }}
+      </p>
+
+      <div class="login__form-group">
+        <label class="login__label" for="email">Email</label>
+        <MyInput id="email" v-model="email" type="text" />
+      </div>
+
+      <div class="login__form-group">
+        <label class="login__label" for="password">Mot de passe</label>
+        <MyInput id="password" v-model="password" type="password" />
+      </div>
+
+      <div class="login__submit">
+        <MyButton variant="purple" size="large" type="submit">
+          Se connecter
+        </MyButton>
+      </div>
+
     </form>
-  </div>
+  </section>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+.login {
+  max-width: rem(900);
+  margin: rem(32) auto;
+  padding: rem(20);
+
+  &__title {
+    text-align: center;
+    color: var(--color-secondary);
+    margin-bottom: rem(20);
+  }
+
+  &__form {
+    padding: rem(20);
+    border: rem(1) solid var(--color-secondary);
+    border-radius: rem(12);
+    background: var(--color-bg);
+
+    /* Toujours une colonne */
+    display: flex;
+    flex-direction: column;
+    gap: rem(20);
+
+    /* ---- Formulaire étroit en desktop ---- */
+    max-width: rem(450);
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      max-width: 100%; /* full width en mobile */
+    }
+  }
+
+  /* Messages */
+  &__message {
+    padding: rem(10);
+    border-radius: rem(8);
+    text-align: center;
+    font-weight: 600;
+
+    &--error {
+      background: rgba(255, 80, 80, 0.15);
+      color: #ff5555;
+      border: 1px solid #ff5555;
+    }
+  }
+
+  /* Inputs */
+  &__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: rem(6);
+  }
+
+  &__label {
+    font-size: rem(16);
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  /* Submit */
+  &__submit {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+</style>
