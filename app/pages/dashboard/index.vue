@@ -13,12 +13,16 @@ function onLogoutClick () {
 
 const config = useRuntimeConfig()
 
-const { data: myRecipes } = await useAsyncData<{ data: Recipe[] }>('my-recipes', () => {
+const {
+  data: myRecipes,
+  refresh: refreshMyRecipes
+} = await useAsyncData<{ data: Recipe[] }>('my-recipes', () => {
   const cookie = useCookie('recipe_token')
   return $fetch(`${config.public.apiUrl}/api/recipes/my-recipes`, {
     headers: { Authorization: `Bearer ${cookie.value}` }
   })
 })
+
 
 const userRecipes = computed(() => myRecipes.value?.data || [])
 const filteredUserRecipes = computed(() => {
@@ -105,7 +109,10 @@ const isLoggedIn = computed(() => !!user.value)
 
       <AddRecipiesForm
         v-if="showForm"
-        @close="closeForm"/>      
+        @close="closeForm" 
+        @created="refreshMyRecipes"
+      /> 
+             
       <MyButton @click="onLogoutClick">Se deconnecter</MyButton>
     </div>
     <MyFiltre
@@ -119,7 +126,7 @@ const isLoggedIn = computed(() => !!user.value)
     <div v-if="filteredUserRecipes.length" class="recipes-grid">
       <div v-for="recipe in filteredUserRecipes" :key="recipe.recipe_id">
 
-        <MyCards :recipe="recipe" />
+        <MyCardsRecipe :recipe="recipe" />
       </div>
     </div>
 

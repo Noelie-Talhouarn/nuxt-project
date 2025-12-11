@@ -25,7 +25,6 @@ defineProps<{
       v-model="model"
       :type="type"
       class="input__field"
-      placeholder="Rechercher"
     >
   </div>
 </template>
