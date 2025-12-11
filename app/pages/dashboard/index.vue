@@ -12,8 +12,6 @@ function onLogoutClick () {
 const config = useRuntimeConfig()
 const cookie = useCookie<string | null>('recipe_token')
 
-/* ============= 1) PROFIL UTILISATEUR ============= */
-
 type UserApiResponse = ApiResponse<User>
 
 const {
@@ -36,7 +34,6 @@ const user = computed<User | null>(() => {
 
 const isLoggedIn = computed(() => !!user.value)
 
-/* ============= 2) RECETTES UTILISATEUR ============= */
 
 const {
   data: myRecipes,
@@ -74,7 +71,6 @@ const filteredUserRecipes = computed(() => {
   return results
 })
 
-/* ============= 3) CUISINES ============= */
 
 const { data: cuisines } = await useAsyncData('cuisines', async () => {
   const { data } = await $fetch<ApiResponse<Cuisine[]>>(
@@ -83,7 +79,6 @@ const { data: cuisines } = await useAsyncData('cuisines', async () => {
   return data
 })
 
-/* ============= 4) FORMULAIRES ============= */
 
 const showForm = ref(false)
 const showEditForm = ref(false)
@@ -109,6 +104,34 @@ function updateUserLocally (newUser: User) {
   }
   showEditForm.value = false
 }
+
+async function deleteAccount () {
+  if (!confirm('⚠️ Cette action est irréversible. Votre compte sera définitivement supprimé.\nVoulez-vous continuer ?')) {
+    return
+  }
+
+  try {
+    const token = cookie.value
+
+    await $fetch(`${config.public.apiUrl}/api/users/profile`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+
+    // On supprime le token côté client
+    cookie.value = null
+
+    // Redirection vers login
+    navigateTo('/login')
+
+  } catch (err) {
+    console.error(err)
+    alert('Impossible de supprimer le compte. Réessayez plus tard.')
+  }
+}
+
 </script>
 
 <template>
@@ -141,6 +164,10 @@ function updateUserLocally (newUser: User) {
         <MyButton @click="onLogoutClick">
           Se déconnecter
         </MyButton>
+        <MyButton  @click="deleteAccount">
+          Supprimer mon compte
+        </MyButton>
+   
       </div>
 
       <!-- Formulaire édition profil -->
