@@ -69,7 +69,14 @@ console.log(payload.value)
 <template>
 
   <MyTitle as="h1" size="medium" class="form__title">Ajouter une recette</MyTitle>
-
+  <MyButton 
+    variant="transparent"
+    size="large"
+    class="form__btn"
+    @click.prevent="emit('close')"
+  >
+    Annuler
+  </MyButton>
   <form v-if="formVisible" @submit.prevent="onSubmit" class="form">
 
     <p v-if="errorMessage" class="form-error">
