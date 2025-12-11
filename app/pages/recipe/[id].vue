@@ -56,6 +56,12 @@ const user = computed(() => {
   }
 })
 
+function updateRecipeLocally (newRecipe: fullRecipe) {
+  recipe.value = newRecipe
+}
+
+const showEditRecipeForm = ref(false)
+
 
 useHead({
   title: recipe.value.title,
@@ -120,6 +126,20 @@ useHead({
       >
         Supprimer la recette
       </MyButton>
+      <MyButton 
+        v-if="isOwner" 
+        @click="showEditRecipeForm = true"
+      >
+        Modifier la recette
+      </MyButton>
+ 
+      <EditRecipeForm
+        v-if="showEditRecipeForm && recipe"
+        :recipe="recipe"
+        @updated="updateRecipeLocally"
+        @close="showEditRecipeForm = false"
+      />
+
 
     </section>
   </div>

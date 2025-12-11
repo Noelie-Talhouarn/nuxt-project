@@ -22,7 +22,8 @@ type recipeInstruction = {
 }
 
 type fullRecipe = Recipe & {
-  instructions: recipeInstruction[]
-  ingredients: RecipeIngredient[]
-  user_id: number
+  instructions: recipeInstruction[];
+  ingredients: RecipeIngredient[];
+  AllergiesInformation_id: number;
+  user_id: number;
 }
