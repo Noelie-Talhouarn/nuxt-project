@@ -94,13 +94,15 @@ const isLoggedIn = computed(() => !!user.value)
 
 <template>
   <section>
-    <div class="p-dashboard">
+    <div class="dashboard-user">
       <div v-if="isLoggedIn">
-        <h1>Dashboard</h1>
-        <p>{{ user.first_name }}</p>
-        <p>{{ user.last_name }}</p>
-        <p>{{ user.username }}</p>
-        <p>{{ user.email }}</p>
+        <MyTitle as="h1" size="large" class="dashboard-user__title">Mon profil</MyTitle>
+        <div class="dashboard-user__info">
+          <p class="dashboard-user__field">prénom : {{ user.first_name }}</p>
+          <p class="dashboard-user__field">nom : {{ user.last_name }}</p>
+          <p class="dashboard-user__field">nom d'utilisateur : {{ user.username }}</p>
+          <p class="dashboard-user__field">email : {{ user.email }}</p>
+        </div>
         
       </div>
       <MyButton v-if="!showForm" @click="openForm">
@@ -135,3 +137,44 @@ const isLoggedIn = computed(() => !!user.value)
 
   </section>
 </template>
+
+<style lang="scss">
+  .dashboard-user {
+  padding: rem(20);
+  gap: rem(16);
+
+  &__title {
+    color: var(--color-secondary);
+      padding-left: rem(20);
+
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+    background: rgba(255,255,255,0.15);
+    padding: rem(15);
+    border-radius: rem(10);
+  }
+
+  &__field {
+    font-size: rem(16);
+    color: var(--color-text);
+  }
+
+  /* Responsive */
+  @media (min-width: 768px) {
+    padding: rem(30);
+
+    &__title {
+      font-size: rem(32);
+    }
+
+    &__info {
+      padding: rem(20);
+    }
+  }
+}
+
+</style>
