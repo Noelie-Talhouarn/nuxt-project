@@ -100,10 +100,10 @@ function handleClickAndHover () {
     padding: rem(5) rem(10);
   }
   &.medium {
-    padding: rem(7) rem(12);
+    padding: rem(7) rem(30);
   }
   &.large {
-    padding: rem(9) rem(14);
+    padding: rem(12) rem(50);
   }
 }
 </style>
