@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SanityBook } from '~/types/api/cms/book'
 
-const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, cover, body, author->{ name }, categories[] -> {...} }`
+const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title,  prix, cover, body, author->{ name }, categories[] -> {...} }`
 const { params } = useRoute()
 
 const { data: book } = await useLazySanityQuery<SanityBook>(BOOK_QUERY, params)
@@ -31,6 +31,9 @@ const { urlFor } = useSanityImage()
     <div class="book__content">
       <p  class="book__author">
         Fais par {{ book.author.name }}
+      </p>
+      <p  class="book__prix">
+        Prix : {{ book.prix }} €
       </p>
 
       <p class="book__categories-title">Catégories :</p>

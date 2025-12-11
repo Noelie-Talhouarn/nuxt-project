@@ -3,6 +3,7 @@ import type { SanityImageSource } from '@sanity/image-url'
 
 type SanityBook = SanityDocument & {
   title: string;
+  prix: number;
   slug: { current : string }
   publishedAt: string;
   image: SanityImageSource;
