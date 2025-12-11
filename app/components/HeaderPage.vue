@@ -71,7 +71,9 @@ function logout () {
 
         <ul class="header__menu header-list">
           <li v-for="(item, index) in navigation" :key="index">
-            <NuxtLink :to="item.url">
+            <NuxtLink :to="item.url" 
+                      @click="closeMenu"
+            >
               {{ item.label }}
             </NuxtLink>
           </li>
