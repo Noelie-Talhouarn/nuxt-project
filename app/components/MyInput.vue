@@ -53,16 +53,16 @@ defineProps<{
       color: #888;
     }
   }
-     &--small {
-    width: 150px;
+    &--small {
+    max-width: rem(150);
   }
 
   &--medium {
-    width: 260px;
+    max-width: rem(260);
   }
 
   &--large {
-    width: 350px;
+    max-width: rem(350);
   }
 }
 </style>

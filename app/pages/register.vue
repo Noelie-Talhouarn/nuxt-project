@@ -128,11 +128,10 @@ async function onSubmit () {
   margin: rem(32) auto;
   padding: rem(20);
 
-  &__title {
-    text-align: center;
-    color: var(--color-secondary);
-    margin-bottom: rem(20);
-  }
+   &__title {
+  text-align: center;
+margin-bottom: rem(24);
+}
 
   &__form {
     padding: rem(20);

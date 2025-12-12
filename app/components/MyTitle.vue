@@ -1,45 +1,85 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   as: 'h1' | 'h2' | 'h3'
   size?: 'default' | 'small' | 'medium' | 'large'
 }>()
 </script>
 
 <template>
-
-
-  <component :is="as" class="title" :class="{ large: props.size === 'large',small: props.size === 'small' }">
-    <slot/>
+  <component
+    :is="as"
+    class="title"
+    :class="`title--${size || 'default'}`"
+  >
+    <slot />
   </component>
 </template>
 
 <style lang="scss">
 .title {
-  font-size: rem(32);
-  font-weight: bold;
-  line-height: rem(40);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-secondary);
+  margin: 0;
 
-  @media (min-width: 480px) {
-    font-size: rem(40);
-    line-height: rem(48);
+  /* =========================
+     DEFAULT
+  ========================= */
+  &--default {
+    font-size: rem(22);
+
+    @media (min-width: 480px) {
+      font-size: rem(26);
+    }
+
+    @media (min-width: 768px) {
+      font-size: rem(30);
+    }
   }
 
-  @media (min-width: 768px) {
-    font-size: rem(50);
-    line-height: rem(60);
+  /* =========================
+     SMALL
+  ========================= */
+  &--small {
+    font-size: rem(18);
+
+    @media (min-width: 480px) {
+      font-size: rem(100);
+    }
+
+    @media (min-width: 768px) {
+      font-size: rem(80);
+    }
   }
 
-  &.large {
-    font-size: rem(60);
+  /* =========================
+     MEDIUM
+  ========================= */
+  &--medium {
+    font-size: rem(26);
+
+    @media (min-width: 480px) {
+      font-size: rem(30);
+    }
+
+    @media (min-width: 768px) {
+      font-size: rem(36);
+    }
   }
 
-  &.medium {
-    font-size: rem(40);
-  }
+  /* =========================
+     LARGE
+  ========================= */
+  &--large {
+    font-size: rem(30);
 
-  &.small {
-    font-size: rem(20);
+    @media (min-width: 480px) {
+      font-size: rem(38);
+    }
+
+    @media (min-width: 768px) {
+      font-size: rem(68);
+    }
   }
 }
-
 </style>

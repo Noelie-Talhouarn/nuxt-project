@@ -74,7 +74,7 @@ useHead({
 <template>
   <div v-if="recipe" class="recipe-page">
     <section class="recipe-hero">
-      <h1 as="h1" size="large">{{ recipe.title }}</h1>
+      <MyTitle as="h1" size="large">{{ recipe.title }}</MyTitle>
       <p class="recipe-hero__description">{{ recipe.description }}</p>
       <div class="recipe-hero__image-wrapper">
         <NuxtImg
@@ -149,80 +149,128 @@ useHead({
 
 .recipe-page {
   width: 100%;
-  max-width: 1200px;
+  max-width: rem(1200);
   margin: 0 auto;
-  padding: rem(20);
+  padding: rem(16);
+
+  @media (min-width: 768px) {
+    padding: rem(20);
+  }
 }
+
+/* ================= HERO ================= */
 
 .recipe-hero {
   text-align: center;
-  margin-bottom: rem(40);
-
-  &__title {
-    font-size: rem(40);
-    font-weight: 800;
-    margin-bottom: rem(10);
-    color: var(--color-secondary);
-  }
+  margin-bottom: rem(30);
 
   &__description {
-    max-width: 700px;
-    margin: 0 auto rem(30) auto;
-    font-size: rem(18);
+    max-width: rem(700);
+    margin: 0 auto rem(24);
+    font-size: rem(16);
     color: var(--color-primary);
+    padding: 0 rem(12);
+
+    @media (min-width: 768px) {
+      font-size: rem(18);
+      padding: 0;
+    }
   }
 
+  &__image-wrapper {
+    width: 100%;
+  }
 }
+
+.recipe__image {
+  width: 100%;
+  height: auto;
+  border-radius: rem(12);
+  display: block;
+}
+
+/* ================= CONTENT ================= */
 
 .recipe-content {
   display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: rem(40);
-  margin-top: rem(40);
+  grid-template-columns: 1fr;
+  gap: rem(24);
 
-  &__main {
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr rem(350);
+    gap: rem(40);
+  }
+
+  &__text {
+    font-size: rem(15);
     color: var(--color-primary);
-    font-size: rem(17);
-    line-height: 1.6;
+
+    @media (min-width: 768px) {
+      font-size: rem(17);
+    }
   }
 
   &__subtitle {
-    margin-top: rem(30);
-    font-size: rem(26);
+    margin-top: rem(24);
+    font-size: rem(22);
     font-weight: 700;
     color: var(--color-primary);
+
+    @media (min-width: 768px) {
+      font-size: rem(26);
+    }
   }
 
   &__instructions {
-    margin-top: rem(10);
-    padding-left: rem(10);
+    margin-top: rem(12);
+    padding-left: rem(8);
     display: flex;
     flex-direction: column;
-    gap: rem(12);
+    gap: rem(10);
   }
 
   &__instruction {
     color: var(--color-text-btn);
     background: var(--color-secondary);
-    padding: rem(12) rem(16);
+    padding: rem(10) rem(14);
     border-radius: rem(8);
-    border: 1px solid var( --color-secondary);
+    border: 1px solid var(--color-secondary);
+    font-size: rem(14);
+
+    @media (min-width: 768px) {
+      font-size: rem(15);
+    }
   }
 }
 
+/* ================= ASIDE ================= */
+
 .recipe-aside {
+  order: 2;
+
+  @media (min-width: 1024px) {
+    order: initial;
+  }
+
   &__card {
     background: var(--color-secondary);
-    padding: rem(20);
+    padding: rem(16);
     border-radius: rem(14);
-    border: var(--color-secondary);
+
+    @media (min-width: 768px) {
+      padding: rem(20);
+    }
   }
 
   &__title {
-    font-size: rem(20);
+    font-size: rem(18);
     font-weight: 700;
-    margin-bottom: rem(16);
-    color: var( --color-text-btn);
+    margin-bottom: rem(14);
+    color: var(--color-text-btn);
+
+    @media (min-width: 768px) {
+      font-size: rem(20);
+    }
   }
 
   &__list {
@@ -235,11 +283,28 @@ useHead({
   }
 
   &__item {
-    padding: rem(10) rem(12);
+    padding: rem(8) rem(12);
     border-radius: rem(8);
-    background: var( --color-text-btn);
-    border: 1px solid var( --color-text-btn);
+    background: var(--color-text-btn);
+    border: 1px solid var(--color-text-btn);
+    font-size: rem(14);
+
+    @media (min-width: 768px) {
+      font-size: rem(15);
+    }
   }
 }
+
+/* ================= ACTIONS ================= */
+
+.delete-btn {
+  margin-top: rem(20);
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
+}
+
 
 </style>
