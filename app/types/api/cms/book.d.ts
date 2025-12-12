@@ -7,7 +7,7 @@ type SanityBook = SanityDocument & {
   slug: { current : string }
   publishedAt: string;
   image: SanityImageSource;
-  body: string;
+  body: PortableTextBlock[];
   author: SanityAuthor;
   categories: SanityCategorie[];
 }

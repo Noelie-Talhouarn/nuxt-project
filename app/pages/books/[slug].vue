@@ -32,6 +32,20 @@ const { urlFor } = useSanityImage()
       <p  class="book__author">
         Fais par {{ book.author.name }}
       </p>
+      <div class="book__body">
+        <p
+          v-for="(block, index) in book.body"
+          :key="index"
+        >
+          <span
+            v-for="(child, childIndex) in block.children"
+            :key="childIndex"
+          >
+            {{ child.text }}
+          </span>
+        </p>
+      </div>
+
       <p  class="book__prix">
         Prix : {{ book.prix }} €
       </p>
