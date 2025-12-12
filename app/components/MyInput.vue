@@ -47,7 +47,7 @@ defineProps<{
     font-size: rem(16);
     border: 1px solid var(--color-secondary);
     border-radius: rem(8);
-    background: #fff;
+    background: var(--color-text-btn);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     &::placeholder {
       color: #888;
