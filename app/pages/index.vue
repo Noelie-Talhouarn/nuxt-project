@@ -3,7 +3,6 @@ import MyTitle from '~/components/MyTitle.vue'
 import MyFiltre from '~/components/MyFiltre.vue'
 import type { SanityHome } from '~/types/api/cms/home'
 
-
 const config = useRuntimeConfig()
 
 const [{ data: recipes, error }, { data: cuisines }] = await Promise.all([
@@ -30,24 +29,26 @@ const search = ref('')
 
 const filters = ref<Cuisine['name'][]>([])
 
-
 const filteredRecipes = computed<Recipe[]>(() => {
   if (!recipes.value) return []
 
   let results = recipes.value
 
   if (filters.value && filters.value.length) {
-    results = results.filter(recipe => filters.value.includes(recipe.cuisine_name))
+    results = results.filter((recipe) =>
+      filters.value.includes(recipe.cuisine_name)
+    )
   }
- 
+
   if (search.value.length) {
-    results = results.filter(recipe => {
-      return recipe.title.toLowerCase().includes(search.value.toLocaleLowerCase())
+    results = results.filter((recipe) => {
+      return recipe.title
+        .toLowerCase()
+        .includes(search.value.toLocaleLowerCase())
     })
   }
   return results
 })
-
 
 const totalPages = computed(() => {
   return Math.ceil(filteredRecipes.value.length / RECIPES_PER_PAGE)
@@ -70,41 +71,41 @@ const HOME_QUERY = groq`*[_type == "home"][0]`
 const { data: home } = await useLazySanityQuery<SanityHome>(HOME_QUERY)
 const { urlFor } = useSanityImage()
 
-
 // useHead({
 //   title: data.value?.title ?? 'Titre du site',
 //   meta :[
-//     { name: 'description', 
-//       content: data.value?.description ?? 'Description du site' 
+//     { name: 'description',
+//       content: data.value?.description ?? 'Description du site'
 //     }
 //   ]
 // })
 
 console.log(home.value)
-
-
 </script>
 
 <template>
   <main>
-    <section 
-      v-if="home" 
+    <section
+      v-if="home"
       class="hero"
       :style="{
         backgroundImage: home?.hero?.image
           ? `url(${urlFor(home.hero.image)?.width(1600).height(800).url()})`
-          : 'none'
+          : 'none',
       }"
-
     >
       <div class="hero__content">
-        <MyTitle as="h1" size="large" class="hero__title">{{ home.hero?.title }}</MyTitle>
+        <MyTitle as="h1" size="large" class="hero__title">{{
+          home.hero?.title
+        }}</MyTitle>
         <p class="hero__subtitle">{{ home.hero?.subtitle }}</p>
       </div>
     </section>
 
     <div v-if="home">
-      <MyTitle as="h2" size="medium" class="hero__subtitle2">{{ home.hero?.subtitle2 }}</MyTitle>
+      <MyTitle as="h2" size="medium" class="hero__subtitle2">{{
+        home.hero?.subtitle2
+      }}</MyTitle>
       <MyFiltre
         v-if="cuisines"
         :cuisines="cuisines"
@@ -120,11 +121,7 @@ console.log(home.value)
         </div>
       </div>
       <div class="pagination" v-if="totalPages > 1">
-        <MyButton
-          variant="carousel"
-          :disabled="page === 1"
-          @click="page--"
-        >
+        <MyButton variant="carousel" :disabled="page === 1" @click="page--">
           Précédent
         </MyButton>
 
@@ -147,15 +144,14 @@ console.log(home.value)
         </MyButton>
       </div>
     </div>
-
   </main>
 </template>
 
 <style lang="scss">
-
 .hero {
   position: relative;
-  height: rem(400);
+  min-height: rem(360);
+  height: 60vh;
 
   background-size: cover;
   background-position: center;
@@ -166,9 +162,9 @@ console.log(home.value)
   justify-content: center;
   text-align: center;
 
-  padding: rem(1);
+  padding: rem(24);
 
-    @media (min-width: 768px) {
+  @media (min-width: 768px) {
     height: 70vh;
   }
 
@@ -186,41 +182,73 @@ console.log(home.value)
 
   &__content {
     position: relative;
-    z-index: 2; // au-dessus de l’image
+    z-index: 2;
     color: var(--color-text-btn);
+
+    max-width: rem(900);
+    margin: 0 auto;
+    padding: rem(16);
   }
 
+  /* ===== TITRE ===== */
   &__title {
-    margin-bottom: rem(2);
-  }
+    margin-bottom: rem(12);
+    font-size: rem(28);
+    line-height: 1.2;
 
-  &__subtitle {
-    font-size: var(--font-size-text2);
-    color: var(--color-text-btn);
-    opacity: 0.9;
-    margin-top: rem(1);
+    @media (min-width: 480px) {
+      font-size: rem(34);
+    }
 
-     @media (max-width: 480px) {
-      font-size: rem(14);
+    @media (min-width: 768px) {
+      font-size: rem(44);
+    }
+
+    @media (min-width: 1024px) {
+      font-size: rem(56);
     }
   }
-     
 
-    &__subtitle2 {
-margin-left: rem(17);  
-color: var(--color-secondary);
-padding: rem(10);
-padding-top: rem(20);
+  /* ===== SOUS-TITRE ===== */
+  &__subtitle {
+    font-size: rem(14);
+    line-height: 1.5;
+    opacity: 0.9;
 
-@media (max-width: 480px) {
+    max-width: rem(700);
+    margin: 0 auto;
+
+    @media (min-width: 480px) {
+      font-size: rem(16);
+    }
+
+    @media (min-width: 768px) {
+      font-size: rem(18);
+    }
+
+    @media (min-width: 1024px) {
+      font-size: rem(20);
+    }
+  }
+
+  /* ===== SOUS-TITRE 2 ===== */
+  &__subtitle2 {
+    margin-left: rem(17);
+    color: var(--color-secondary);
+    padding: rem(10);
+    padding-top: rem(20);
+    @media (max-width: 480px) {
       font-size: rem(30);
     }
-}
+  }
 }
 
 .recipes-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(rem(250), 1fr)); // 2 colonnes équilibrées
+  grid-template-columns: repeat(
+    2,
+    minmax(rem(250), 1fr)
+  ); // 2 colonnes équilibrées
   gap: rem(20);
   padding-bottom: rem(20);
   margin-top: rem(20);
@@ -235,8 +263,8 @@ padding-top: rem(20);
 
   /* MOBILE */
   @media (max-width: 600px) {
-    grid-template-columns: 1fr;  // 1 card
-    justify-items: center;       // centre la card
+    grid-template-columns: 1fr; // 1 card
+    justify-items: center; // centre la card
     max-width: 100%;
   }
 }
@@ -245,12 +273,10 @@ padding-top: rem(20);
 .pagination {
   display: flex;
   justify-content: center;
-    flex-wrap: wrap;
+  flex-wrap: wrap;
   // centre horizontalement
-  align-items: center;      // optionnel : centre verticalement
+  align-items: center; // optionnel : centre verticalement
   gap: rem(5);
   margin: 2rem 0;
 }
-
-
 </style>

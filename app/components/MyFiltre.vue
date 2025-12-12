@@ -60,7 +60,7 @@ function toggleFilter (value: string) {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 .filters {
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@ function toggleFilter (value: string) {
   &__list {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: rem(10);
     justify-content: center;
       padding-top: rem(20);
 

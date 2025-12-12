@@ -118,22 +118,22 @@ async function saveProfile () {
     grid-column: span 2;
   }
 
-  .form-error,
-  .form-success {
-    grid-column: span 2;
+  &__error,
+  &__success {
+    grid-column: 1 / -1;
     padding: rem(10);
     border-radius: rem(8);
     text-align: center;
     font-weight: 600;
   }
 
-  .form-error {
+  &__error {
     background: rgba(255, 80, 80, 0.15);
     color: #ff5555;
     border: 1px solid #ff5555;
   }
 
-  .form-success {
+  &__success {
     background: rgba(80, 255, 130, 0.15);
     color: #2eb872;
     border: 1px solid #2eb872;
