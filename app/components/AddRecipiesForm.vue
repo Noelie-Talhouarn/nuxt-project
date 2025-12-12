@@ -164,8 +164,8 @@ console.log(payload.value)
   &-error {
     grid-column: span 2; /* message sur toute la largeur */
     background: rgba(255, 80, 80, 0.15);
-    color: #ff5555;
-    border: 1px solid #ff5555;
+    color: var(--color-delete);
+    border: rem(2) solid var(--color-delete);
     padding: rem(10);
     border-radius: rem(8);
     text-align: center;

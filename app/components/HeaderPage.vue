@@ -113,7 +113,7 @@ function logout () {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 80px;
-  background: #fff;
+  background: var(--color-text-btn);
   z-index: 1000;
   border-bottom: solid rem(2) var(--color-secondary);
 
@@ -131,7 +131,7 @@ function logout () {
   &__logo-icon {
     width: rem(60);
     height: rem(60);
-    color: #000;
+    color: var(--color-text);
   }
 
  /* BURGER MOBILE */
@@ -150,7 +150,7 @@ function logout () {
   span {
     height: 3px;
     width: 100%;
-    background: #000;
+    background: var(--color-text);
     border-radius: 5px;
     transition: 0.3s;
   }
@@ -175,7 +175,7 @@ function logout () {
     top: 0; left: 0;
     height: 100vh;
     width: 100%;
-    background: white;
+    background: var(--color-text-btn);
     padding-top: 100px;
     display: flex;
     flex-direction: column;

@@ -43,7 +43,7 @@ onUnmounted(() => {
 .backgroundScroll {
   background: var(--color-secondary);
   min-height: 200vh;
-  color: white;
+  color: var(--color-text-btn);
   &_content {
     position: sticky;
     top: 0;

@@ -132,14 +132,14 @@ async function saveRecipe () {
 
   .form-error {
     background: rgba(255, 80, 80, 0.15);
-    color: #ff5555;
-    border: 1px solid #ff5555;
+    color: var(--color-delete);
+    border: 1px solid var(--color-delete);
   }
 
   .form-success {
     background: rgba(80, 255, 130, 0.15);
-    color: #2eb872;
-    border: 1px solid #2eb872;
+    color: var(--color-secondary);
+    border: rem(2) solid var(--color-secondary);
   }
 
   &__group {
@@ -157,7 +157,7 @@ async function saveRecipe () {
   &__select {
     padding: rem(10) rem(14);
     font-size: rem(16);
-    border: 1px solid var(--color-secondary);
+    border: rem(2) solid var(--color-secondary);
     border-radius: rem(8);
     background: var(--color-text-btn);
   }
