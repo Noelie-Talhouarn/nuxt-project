@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['guest']
+})
+
 const first_name = ref('')
 const last_name = ref('')
 const username = ref('')
@@ -36,7 +40,7 @@ async function onSubmit () {
       return
     }
 
-    // 🎉 Inscription réussie → connexion automatique
+    // Connexion auto après inscription
     const loginResponse = await fetch(`${config.public.apiUrl}/api/users/login`, {
       method: 'POST',
       headers: {
@@ -54,17 +58,16 @@ async function onSubmit () {
     if (loginJson.success) {
       const cookie = useCookie('recipe_token')
       cookie.value = loginJson.data.token
-
-      return navigateTo('/dashboard')
+      navigateTo('/dashboard')
     }
 
   } catch (err) {
     console.error(err)
-    errorMessage.value = 'Erreur serveur '
+    errorMessage.value = 'Erreur serveur ❌'
   }
 }
-
 </script>
+
 <template>
   <section class="register">
     <MyTitle as="h1" size="large" class="register__title">
