@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: ['guest']
+})
+
 const email = ref('')
 const password = ref('')
 const errorMessage = ref('')
@@ -24,22 +28,22 @@ async function onSubmit () {
     const json = await response.json()
 
     if (!json.success) {
-      errorMessage.value = 'Email ou mot de passe incorrect ❌'
+      errorMessage.value = 'Email ou mot de passe incorrect '
       return
     }
 
-    const token = json.data.token
     const cookie = useCookie('recipe_token')
-    cookie.value = token
+    cookie.value = json.data.token
 
     navigateTo('/dashboard')
 
   } catch (err) {
     console.error(err)
-    errorMessage.value = 'Erreur serveur ❌'
+    errorMessage.value = 'Erreur serveur '
   }
 }
 </script>
+
 
 <template>
   <section class="login">

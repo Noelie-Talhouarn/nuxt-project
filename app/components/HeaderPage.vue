@@ -85,10 +85,16 @@ function logout () {
           <!-- Connecté -->
           <template v-if="isLoggedIn">
             <span class="header__email">{{ user?.email }}</span>
-            <MyButton  @click="logout">
+
+            <MyButton href="/dashboard" variant="purple" @click="closeMenu">
+              Profil
+            </MyButton>
+
+            <MyButton variant="transparent" @click="logout">
               Déconnexion
             </MyButton>
           </template>
+
 
           <!-- Non connecté -->
           <template v-else>
