@@ -1,4 +1,11 @@
 <script setup lang="ts">
+const props = defineProps<{
+  goals: Goal[]
+  cuisines: Cuisine[]
+  diets: Diet[]
+  allergies: Allergy[]
+}>()
+
 const payload = ref({
   title: '',
   description: '',
@@ -8,138 +15,125 @@ const payload = ref({
   ingredient_id: '',
   DietaryInformation_id: 0,
   AllergiesInformation_id: 0
-}) 
+})
 
 const errorMessage = ref('')
+const formVisible = ref(true)
+
+const emit = defineEmits<{
+  (e: 'close' | 'created'): void
+}>()
+
 
 const config = useRuntimeConfig()
 
-const formVisible = ref(true)
-
-const goals = ref<Goal[]>(
-  (await $fetch<{ data: Goal[] }>(`${config.public.apiUrl}/api/goals`)).data
-)
-
-const cuisines = ref<Cuisine[]>(
-  (await $fetch<{ data: Cuisine[] }>(`${config.public.apiUrl}/api/cuisines`)).data
-)
-const diets = ref<Diet[]>(
-  (await $fetch<{ data: Diet[] }>(`${config.public.apiUrl}/api/diets`)).data
-)
-
-const allergies = ref<Allergy[]>(
-  (await $fetch<{ data: Allergy[] }>(`${config.public.apiUrl}/api/allergies`)).data
-)
-
-
-const emit = defineEmits(['close', 'created'])
-
 async function onSubmit () {
-  if (!payload.value.title || !payload.value.description || !payload.value.image_url || !payload.value.goal_id || !payload.value.DietaryInformation_id || !payload.value.AllergiesInformation_id) 
-  {
-    errorMessage.value = '⚠️ Veuillez remplir tous les champs.' 
-    return }
-    
+  if (
+    !payload.value.title ||
+    !payload.value.description ||
+    !payload.value.image_url ||
+    !payload.value.goal_id ||
+    !payload.value.DietaryInformation_id ||
+    !payload.value.AllergiesInformation_id
+  ) {
+    errorMessage.value = '⚠️ Veuillez remplir tous les champs.'
+    return
+  }
+
   try {
     await fetch(`${config.public.apiUrl}/api/recipes`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${useCookie('recipe_token').value}`
       },
-      body: JSON.stringify(payload.value
-      )
+      body: JSON.stringify(payload.value)
     })
 
     emit('created')
     emit('close')
-
   } catch (err) {
-    errorMessage.value = '🔥 Erreur serveur.'
+    errorMessage.value = 'Erreur serveur.'
     console.error(err)
   }
 }
-
-console.log(payload.value.title)
-
-console.log(payload.value)
 </script>
 
-<template>
 
-  <MyTitle as="h1" size="medium" class="form__title">Ajouter une recette</MyTitle>
-  <MyButton 
-    variant="transparent"
-    size="large"
-    class="form__btn"
-    @click.prevent="emit('close')"
-  >
+<template>
+  <MyTitle as="h1" size="medium" class="form__title">
+    Ajouter une recette
+  </MyTitle>
+
+  <MyButton variant="transparent" size="large" class="form__btn" @click.prevent="emit('close')">
     Annuler
   </MyButton>
-  <form v-if="formVisible" @submit.prevent="onSubmit" class="form">
 
+  <form v-if="formVisible" @submit.prevent="onSubmit" class="form">
     <p v-if="errorMessage" class="form-error">
       {{ errorMessage }}
     </p>
+
     <div class="form__group">
-      <label for="title" class="form__label">Titre</label>
-      <MyInput id="title" v-model="payload.title" type="text" />
+      <label class="form__label">Titre</label>
+      <MyInput v-model="payload.title" type="text" />
     </div>
 
     <div class="form__group">
-      <label for="image" class="form__label">Image (URL)</label>
-      <MyInput id="image" v-model="payload.image_url" type="text" />
+      <label class="form__label">Image (URL)</label>
+      <MyInput v-model="payload.image_url" type="text" />
     </div>
 
     <div class="form__group">
-      <label for="description" class="form__label">Description</label>
-      <MyInput id="description" v-model="payload.description" type="text" />
+      <label class="form__label">Description</label>
+      <MyInput v-model="payload.description" type="text" />
     </div>
 
     <div class="form__group">
-      <label for="allergy" class="form__label">Allergies</label>
-      <select id="allergy" v-model="payload.AllergiesInformation_id" class="form__select">
-        <option v-for="allergy in allergies" :key="allergy.allergy_id" :value="allergy.allergy_id">
+      <label class="form__label">Allergies</label>
+      <select v-model="payload.AllergiesInformation_id" class="form__select">
+        <option v-for="allergy in props.allergies" :key="allergy.allergy_id" :value="allergy.allergy_id">
           {{ allergy.name }}
         </option>
       </select>
     </div>
 
     <div class="form__group">
-      <label for="cuisine" class="form__label">Cuisine</label>
-      <select id="cuisine" v-model="payload.cuisine_id" class="form__select">
-        <option v-for="c in cuisines" :key="c.cuisine_id" :value="c.cuisine_id">
+      <label class="form__label">Cuisine</label>
+      <select v-model="payload.cuisine_id" class="form__select">
+        <option v-for="c in props.cuisines" :key="c.cuisine_id" :value="c.cuisine_id">
           {{ c.name }}
         </option>
       </select>
     </div>
 
     <div class="form__group">
-      <label for="goal" class="form__label">Objectifs</label>
-      <select id="goal" v-model="payload.goal_id" class="form__select">
-        <option v-for="goal in goals" :key="goal.goal_id" :value="goal.goal_id">
+      <label class="form__label">Objectifs</label>
+      <select v-model="payload.goal_id" class="form__select">
+        <option v-for="goal in props.goals" :key="goal.goal_id" :value="goal.goal_id">
           {{ goal.name }}
         </option>
       </select>
     </div>
 
     <div class="form__group">
-      <label for="diet" class="form__label">Régime alimentaire</label>
-      <select id="diet" v-model="payload.DietaryInformation_id" class="form__select">
-        <option v-for="diet in diets" :key="diet.diet_id" :value="diet.diet_id">
+      <label class="form__label">Régime alimentaire</label>
+      <select v-model="payload.DietaryInformation_id" class="form__select">
+        <option v-for="diet in props.diets" :key="diet.diet_id" :value="diet.diet_id">
           {{ diet.name }}
         </option>
       </select>
     </div>
 
     <div class="form__submit">
-      <MyButton variant="purple" size="large" type="submit">Créer</MyButton>
+      <MyButton variant="purple" size="large" type="submit">
+        Créer
+      </MyButton>
     </div>
   </form>
-
-
 </template>
+
 <style lang="scss">
 .form {
   padding: rem(20);
