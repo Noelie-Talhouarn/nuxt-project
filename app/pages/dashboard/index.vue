@@ -14,18 +14,52 @@ const cookie = useCookie<string | null>('recipe_token')
 
 type UserApiResponse = ApiResponse<User>
 
-const {
-  data: userResponse
-} = await useAsyncData<UserApiResponse | null>('user-profile', async () => {
-  if (!cookie.value) return null
+type RecipesApiResponse = { data: Recipe[] }
 
-  return await $fetch<UserApiResponse>(
-    `${config.public.apiUrl}/api/users/profile`,
-    {
-      headers: { Authorization: `Bearer ${cookie.value}` }
-    }
-  )
-})
+const token = computed(() => cookie.value ?? '')
+
+const [
+  { data: userResponse },
+  { data: myRecipes, refresh: refreshMyRecipes },
+  { data: cuisines },
+  { data: goals },
+  { data: diets },
+  { data: allergies }
+] = await Promise.all([
+  useAsyncData<UserApiResponse | null>('user-profile', async () => {
+    if (!token.value) return null
+    return await $fetch<UserApiResponse>(`${config.public.apiUrl}/api/users/profile`, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+  }),
+
+  useAsyncData<RecipesApiResponse>('my-recipes', async () => {
+    return await $fetch<RecipesApiResponse>(`${config.public.apiUrl}/api/recipes/my-recipes`, {
+      headers: { Authorization: `Bearer ${token.value}` }
+    })
+  }),
+
+  useAsyncData<Cuisine[]>('cuisines', async () => {
+    const res = await $fetch<ApiResponse<Cuisine[]>>(`${config.public.apiUrl}/api/cuisines`)
+    return res.data
+  }),
+
+  useAsyncData<Goal[]>('goals', async () => {
+    const res = await $fetch<ApiResponse<Goal[]>>(`${config.public.apiUrl}/api/goals`)
+    return res.data
+  }),
+
+  useAsyncData<Diet[]>('diets', async () => {
+    const res = await $fetch<ApiResponse<Diet[]>>(`${config.public.apiUrl}/api/diets`)
+    return res.data
+  }),
+
+  useAsyncData<Allergy[]>('allergies', async () => {
+    const res = await $fetch<ApiResponse<Allergy[]>>(`${config.public.apiUrl}/api/allergies`)
+    return res.data
+  })
+])
+
 
 const user = computed<User | null>(() => {
   if (!userResponse.value?.data) return null
@@ -34,16 +68,6 @@ const user = computed<User | null>(() => {
 
 const isLoggedIn = computed(() => !!user.value)
 
-
-const {
-  data: myRecipes,
-  refresh: refreshMyRecipes
-} = await useAsyncData<{ data: Recipe[] }>('my-recipes', () => {
-  const token = cookie.value
-  return $fetch(`${config.public.apiUrl}/api/recipes/my-recipes`, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-})
 
 const userRecipes = computed(() => myRecipes.value?.data || [])
 
@@ -69,14 +93,6 @@ const filteredUserRecipes = computed(() => {
   }
 
   return results
-})
-
-
-const { data: cuisines } = await useAsyncData('cuisines', async () => {
-  const { data } = await $fetch<ApiResponse<Cuisine[]>>(
-    `${config.public.apiUrl}/api/cuisines`
-  )
-  return data
 })
 
 
@@ -180,11 +196,14 @@ async function deleteAccount () {
       />
 
       <!-- Formulaire création recette -->
-      <AddRecipiesForm
-        v-if="showForm"
-        @close="closeForm"
-        @created="refreshMyRecipes"
-      />
+      <AddRecipiesForm  v-if="showForm && goals && cuisines && diets && allergies"
+                        :goals="goals" 
+                        :cuisines="cuisines" 
+                        :diets="diets" 
+                        :allergies="allergies"
+                        @close="closeForm" 
+                        @created="refreshMyRecipes" />
+
     </div>
 
     <MyFiltre
