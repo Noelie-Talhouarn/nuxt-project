@@ -15,31 +15,33 @@ defineProps<{
 
 const { urlFor } = useSanityImage()
 
+const { user, isLoggedIn, logout } = useAuth()
+
 
 // ============================
 // AUTH avec JWT dans le cookie
 // ============================
-const cookie = useCookie('recipe_token')
+// const cookie = useCookie('recipe_token')
 
-const user = computed(() => {
-  if (!cookie.value) return null
+// const user = computed(() => {
+//   if (!cookie.value) return null
 
-  try {
-    const parts = cookie.value.split('.')
-    if (!parts[1]) return null
+//   try {
+//     const parts = cookie.value.split('.')
+//     if (!parts[1]) return null
 
-    return JSON.parse(atob(parts[1]))
-  } catch {
-    return null
-  }
-})
+//     return JSON.parse(atob(parts[1]))
+//   } catch {
+//     return null
+//   }
+// })
 
-const isLoggedIn = computed(() => !!user.value)
+// const isLoggedIn = computed(() => !!user.value)
 
-function logout () {
-  cookie.value = null
-  navigateTo('/login')
-}
+// function logout () {
+//   cookie.value = null
+//   navigateTo('/login')
+// }
 </script>
 
 <template>

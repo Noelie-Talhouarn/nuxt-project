@@ -18,6 +18,9 @@ type RecipesApiResponse = { data: Recipe[] }
 
 const token = computed(() => cookie.value ?? '')
 
+const { user, isLoggedIn } = useAuth()
+
+
 const [
   { data: userResponse },
   { data: myRecipes, refresh: refreshMyRecipes },
@@ -61,12 +64,12 @@ const [
 ])
 
 
-const user = computed<User | null>(() => {
-  if (!userResponse.value?.data) return null
-  return userResponse.value.data
-})
+// const user = computed<User | null>(() => {
+//   if (!userResponse.value?.data) return null
+//   return userResponse.value.data
+// })
 
-const isLoggedIn = computed(() => !!user.value)
+// const isLoggedIn = computed(() => !!user.value)
 
 
 const userRecipes = computed(() => myRecipes.value?.data || [])
