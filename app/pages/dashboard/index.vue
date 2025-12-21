@@ -1,4 +1,7 @@
 <script setup lang="ts">
+
+import type { SanityDashboard } from '~/types/api/cms/dashboard'
+
 definePageMeta({
   middleware: ['auth']
 })
@@ -151,6 +154,27 @@ async function deleteAccount () {
   }
 }
 
+const DASHBOARD_QUERY = groq`
+  *[_type == "pageDashboard"][0]{
+    title,
+    metaDescription
+  }
+`
+
+const { data: dashboard } =
+  await useLazySanityQuery<SanityDashboard | null>(DASHBOARD_QUERY)
+
+/* ---------- SEO ---------- */
+useHead({
+  title: dashboard.value?.title ?? 'Dashboard',
+  meta: [
+    {
+      name: 'description',
+      content: dashboard.value?.metaDescription ?? ''
+    }
+  ]
+})
+
 </script>
 
 <template>
@@ -158,7 +182,7 @@ async function deleteAccount () {
     <div class="dashboard-user">
       <div v-if="isLoggedIn && user">
         <MyTitle as="h1" size="large" class="dashboard-user__title">
-          Mon profil
+          {{dashboard?.title}}
         </MyTitle>
 
         <div class="dashboard-user__info">

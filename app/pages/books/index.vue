@@ -1,20 +1,52 @@
 <script setup lang="ts">
 import type { SanityBook } from '~/types/api/cms/book'
-
-
-const BOOKS_QUERY = groq`*[
-  _type == "book"
-  && defined(slug.current)
-]|order(publishedAt desc)[0...12]{_id, title, slug, cover, publishedAt}`
-
+import type { SanityPageBooks } from '~/types/api/cms/pageBooks'
+/* ---------- Livres ---------- */
+const BOOKS_QUERY = groq`
+  *[
+    _type == "book"
+    && defined(slug.current)
+  ]
+  | order(publishedAt desc)[0...12]{
+    _id,
+    title,
+    slug,
+    cover,
+    publishedAt
+  }
+`
 
 const { data: books } = await useLazySanityQuery<SanityBook[]>(BOOKS_QUERY)
 
+/* ---------- Page SEO listing ---------- */
+const PAGEBOOKS_QUERY = groq`
+  *[_type == "pageBooks"][0]{
+    title,
+    intro,
+    metaDescription
+  }
+`
+
+const { data: page } =
+  await useLazySanityQuery<SanityPageBooks | null>(PAGEBOOKS_QUERY)
+
+/* ---------- SEO ---------- */
+useHead({
+  title: page.value?.title ?? 'Livres de cuisine',
+  meta: [
+    {
+      name: 'description',
+      content: page.value?.metaDescription ?? ''
+    }
+  ]
+})
 </script>
+
 
 <template>
   <main class="books">
-    <MyTitle class="books__title" as="h1" size="medium">Nos Livres de recettes</MyTitle>
+    <MyTitle class="books__title" as="h1" size="medium">{{ page?.title }}</MyTitle>
+    <p>{{ page?.intro }}</p>
 
     <div class="books__grid">
       <MyCardsBooks

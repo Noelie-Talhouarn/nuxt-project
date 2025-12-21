@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import type { SanityBook } from '~/types/api/cms/book'
 
-const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title,  prix, cover, body, author->{ name }, categories[] -> {...} }`
+const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, prix, cover, body, metaDescription, author->{ name }, categories[] -> {...} }`
 const { params } = useRoute()
 
 const { data: book } = await useLazySanityQuery<SanityBook>(BOOK_QUERY, params)
 const { urlFor } = useSanityImage()
 
+
+useHead(() => ({
+  title: book.value?.title ?? 'Titre du site',
+  meta: [
+    {
+      name: 'description',
+      content: book.value?.metaDescription ?? 'Description du site'
+    }
+  ]
+}))
 
 </script>
 
