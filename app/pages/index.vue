@@ -3,6 +3,7 @@ import MyTitle from '~/components/MyTitle.vue'
 import MyFiltre from '~/components/MyFiltre.vue'
 import type { SanityHome } from '~/types/api/cms/home'
 
+
 const config = useRuntimeConfig()
 
 const [{ data: recipes, error }, { data: cuisines }] = await Promise.all([
@@ -71,14 +72,17 @@ const HOME_QUERY = groq`*[_type == "home"][0]`
 const { data: home } = await useLazySanityQuery<SanityHome>(HOME_QUERY)
 const { urlFor } = useSanityImage()
 
-// useHead({
-//   title: data.value?.title ?? 'Titre du site',
-//   meta :[
-//     { name: 'description',
-//       content: data.value?.description ?? 'Description du site'
-//     }
-//   ]
-// })
+const { data } = await useLazySanityQuery<SanityHome>(HOME_QUERY)
+
+
+useHead({
+  title: data.value?.title ?? 'Titre du site',
+  meta :[
+    { name: 'description',
+      content: data.value?.description ?? 'Description du site'
+    }
+  ]
+})
 
 console.log(home.value)
 </script>
