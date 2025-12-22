@@ -71,7 +71,7 @@ async function onSubmit () {
   </MyButton>
 
   <form v-if="formVisible" @submit.prevent="onSubmit" class="form">
-    <p v-if="errorMessage" class="form-error">
+    <p v-if="errorMessage" class="form__error">
       {{ errorMessage }}
     </p>
 
@@ -155,16 +155,16 @@ async function onSubmit () {
     color: var(--color-secondary);
   }
 
-  &-error {
-    grid-column: span 2; /* message sur toute la largeur */
-    background: rgba(255, 80, 80, 0.15);
-    color: var(--color-delete);
-    border: rem(2) solid var(--color-delete);
-    padding: rem(10);
-    border-radius: rem(8);
-    text-align: center;
-    font-weight: 600;
-  }
+&__error {
+  grid-column: span 2;
+  background: rgba(255, 80, 80, 0.15);
+  color: var(--color-delete);
+  border: rem(2) solid var(--color-delete);
+  padding: rem(10);
+  border-radius: rem(8);
+  text-align: center;
+  font-weight: 600;
+}
 
   &__group {
     display: flex;

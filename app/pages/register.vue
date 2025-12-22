@@ -106,7 +106,7 @@ async function onSubmit () {
       <!-- Email -->
       <div class="register__form-group">
         <label class="register__label" for="email">Email</label>
-        <MyInput id="email" v-model="email" type="text" />
+        <MyInput id="email" v-model="email" type="email" />
       </div>
 
       <!-- Password -->

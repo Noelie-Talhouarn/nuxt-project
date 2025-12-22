@@ -75,47 +75,47 @@ useHead({
 </script>
 
 <template>
-  <div v-if="recipe" class="recipe-page">
-    <section class="recipe-hero">
+  <div v-if="recipe" class="recipe">
+    <section class="recipe__hero">
       <MyTitle as="h1" size="large">{{ recipe.title }}</MyTitle>
-      <p class="recipe-hero__description">{{ recipe.description }}</p>
-      <div class="recipe-hero__image-wrapper">
+      <p class="recipe__hero-description">{{ recipe.description }}</p>
+      <div class="recipe__hero-image-wrapper">
         <NuxtImg
           :src="`/recipes/` + recipe.image_url"
           alt="Image de recette"
           width="1200"
           height="800"
-          class="recipe__image"
+          class="recipe__hero-image"
         />
       </div>
     </section>
 
-    <section class="recipe-content">
+    <section class="recipe__content">
       <div>
-        <p class="recipe-content__text">Cuisine : {{ recipe.cuisine_name }}</p>
-        <p class="recipe-content__text">Objectif : {{ recipe.goal_name }}</p>
-        <p class="recipe-content__text">Régime : {{ recipe.diet_name }}</p>
-        <p class="recipe-content__text">Allergie : {{ recipe.allergy_name }}</p>
+        <p class="recipe__content-text">Cuisine : {{ recipe.cuisine_name }}</p>
+        <p class="recipe__content-text">Objectif : {{ recipe.goal_name }}</p>
+        <p class="recipe__content-text">Régime : {{ recipe.diet_name }}</p>
+        <p class="recipe__content-text">Allergie : {{ recipe.allergy_name }}</p>
 
-        <h2 class="recipe-content__subtitle">Instructions</h2>
-        <ul class="recipe-content__instructions">
+        <h2 class="recipe__content-subtitle">Instructions</h2>
+        <ul class="recipe__content-instructions">
           <li 
             v-for="(instruction, index) in recipe.instructions" 
             :key="index"
-            class="recipe-content__instruction"
+            class="recipe__content-instruction"
           >
             <strong>{{ instruction.step_number }}.</strong> {{ instruction.description }}
           </li>
         </ul>
       </div>
-      <aside class="recipe-aside">
-        <div class="recipe-aside__card">
-          <h3 class="recipe-aside__title">Ingrédients</h3>
-          <ul class="recipe-aside__list">
+      <aside class="recipe__aside">
+        <div class="recipe__aside-card">
+          <h3 class="recipe__aside-title">Ingrédients</h3>
+          <ul class="recipe__aside-list">
             <li 
               v-for="(ingredient, index) in recipe.ingredients" 
               :key="index"
-              class="recipe-aside__item"
+              class="recipe__aside-item"
             >
               {{ ingredient.quantity }} {{ ingredient.unit }} — {{ ingredient.name }}
             </li>
@@ -124,7 +124,7 @@ useHead({
       </aside> 
       <MyButton 
         v-if="isOwner" 
-        class="delete-btn"
+        class="recipe__delete"
         @click="deleteRecipe"
       >
         Supprimer la recette
@@ -150,164 +150,148 @@ useHead({
 
 <style lang="scss">
 
-.recipe-page {
+.recipe {
   width: 100%;
   max-width: rem(1200);
   margin: 0 auto;
   padding: rem(16);
 
   @media (min-width: 768px) {
-    padding: rem(20);
+    padding: rem(32);
   }
-}
-
-/* ================= HERO ================= */
-
-.recipe-hero {
-  text-align: center;
-  margin-bottom: rem(30);
-
-  &__description {
-    max-width: rem(700);
-    margin: 0 auto rem(24);
-    font-size: rem(16);
-    color: var(--color-primary);
-    padding: 0 rem(12);
-
-    @media (min-width: 768px) {
-      font-size: rem(18);
-      padding: 0;
-    }
-  }
-
-  &__image-wrapper {
-    width: 100%;
-  }
-}
-
-.recipe__image {
-  width: 100%;
-  height: auto;
-  border-radius: rem(12);
-  display: block;
-}
-
-/* ================= CONTENT ================= */
-
-.recipe-content {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: rem(24);
 
   @media (min-width: 1024px) {
-    grid-template-columns: 1fr rem(350);
-    gap: rem(40);
+    padding: rem(48);
   }
 
-  &__text {
-    font-size: rem(15);
+  /* ================= HERO ================= */
+  &__hero {
+    text-align: center;
+    margin-bottom: rem(32);
+  }
+
+  &__hero-description {
+    max-width: rem(700);
+    margin: 0 auto rem(24);
+    font-size: rem(14);
     color: var(--color-primary);
 
     @media (min-width: 768px) {
-      font-size: rem(17);
+      font-size: rem(16);
     }
   }
 
-  &__subtitle {
+  &__hero-image-wrapper {
+    width: 100%;
+  }
+
+  &__hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: rem(12);
+    display: block;
+  }
+
+  /* ================= CONTENT ================= */
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: rem(24);
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr rem(320);
+      gap: rem(40);
+      align-items: start;
+    }
+  }
+
+  &__content-text {
+    font-size: rem(14);
+    color: var(--color-primary);
+
+    @media (min-width: 768px) {
+      font-size: rem(16);
+    }
+  }
+
+  &__content-subtitle {
     margin-top: rem(24);
-    font-size: rem(22);
+    font-size: rem(20);
     font-weight: 700;
-    color: var(--color-primary);
 
     @media (min-width: 768px) {
-      font-size: rem(26);
+      font-size: rem(22);
     }
   }
 
-  &__instructions {
-    margin-top: rem(12);
-    padding-left: rem(8);
+  &__content-instructions {
     display: flex;
     flex-direction: column;
     gap: rem(10);
+    margin-top: rem(12);
   }
 
-  &__instruction {
-    color: var(--color-text-btn);
+  &__content-instruction {
     background: var(--color-secondary);
+    color: var(--color-text-btn);
     padding: rem(10) rem(14);
     border-radius: rem(8);
-    border: 1px solid var(--color-secondary);
     font-size: rem(14);
 
     @media (min-width: 768px) {
       font-size: rem(15);
     }
   }
-}
 
-/* ================= ASIDE ================= */
+  /* ================= ASIDE ================= */
+  &__aside {
+    order: 2;
 
-.recipe-aside {
-  order: 2;
-
-  @media (min-width: 1024px) {
-    order: initial;
+    @media (min-width: 1024px) {
+      order: 1;
+    }
   }
 
-  &__card {
+  &__aside-card {
     background: var(--color-secondary);
     padding: rem(16);
     border-radius: rem(14);
-
-    @media (min-width: 768px) {
-      padding: rem(20);
-    }
   }
 
-  &__title {
-    font-size: rem(18);
-    font-weight: 700;
-    margin-bottom: rem(14);
+  &__aside-title {
+    font-size: rem(16);
     color: var(--color-text-btn);
+    margin-bottom: rem(12);
 
     @media (min-width: 768px) {
-      font-size: rem(20);
+      font-size: rem(18);
     }
   }
 
-  &__list {
+  &__aside-list {
     list-style: none;
     padding: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: rem(10);
+    gap: rem(8);
   }
 
-  &__item {
-    padding: rem(8) rem(12);
-    border-radius: rem(8);
+  &__aside-item {
     background: var(--color-text-btn);
-    border: 1px solid var(--color-text-btn);
+    padding: rem(8);
+    border-radius: rem(6);
     font-size: rem(14);
+  }
+
+  /* ================= ACTIONS ================= */
+  &__delete {
+    margin-top: rem(20);
+    width: 100%;
 
     @media (min-width: 768px) {
-      font-size: rem(15);
+      width: auto;
     }
   }
 }
-
-/* ================= ACTIONS ================= */
-
-.delete-btn {
-  margin-top: rem(20);
-  width: 100%;
-
-  @media (min-width: 768px) {
-    width: auto;
-  }
-}
-
-
 </style>

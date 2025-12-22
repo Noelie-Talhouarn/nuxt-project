@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 
 const email = ref('')
 const password = ref('')
@@ -23,13 +23,13 @@ const onSubmit = () => {
 
 <template>
   <form class="form" @submit.prevent="onSubmit">
-    <div class="field">
-      <label for="email">Email</label>
-      <input id="email" v-model="email" type="email" >
+    <div class="form__field">
+      <label for="email" class="form__label">Email</label>
+      <input id="email" v-model="email" type="email" class="form__inpou">
     </div>
 
-    <div class="field">
-      <label for="password">Mot de passe</label>
+    <div class="form__field">
+      <label for="password" class="form__label">Mot de passe</label>
       <input id="password" v-model="password" type="password" >
     </div>
 
@@ -41,4 +41,4 @@ const onSubmit = () => {
 .form {
   border: none;
 }
-</style>
+</style> -->

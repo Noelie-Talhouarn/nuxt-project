@@ -72,19 +72,16 @@ const HOME_QUERY = groq`*[_type == "home"][0]`
 const { data: home } = await useLazySanityQuery<SanityHome>(HOME_QUERY)
 const { urlFor } = useSanityImage()
 
-const { data } = await useLazySanityQuery<SanityHome>(HOME_QUERY)
-
 
 useHead({
-  title: data.value?.title ?? 'Titre du site',
+  title: home.value?.title ?? 'Titre du site',
   meta :[
     { name: 'description',
-      content: data.value?.description ?? 'Description du site'
+      content: home.value?.description ?? 'Description du site'
     }
   ]
 })
 
-console.log(home.value)
 </script>
 
 <template>
@@ -119,12 +116,12 @@ console.log(home.value)
         input-size="large"
       />
 
-      <div class="recipes-grid">
+      <div class="recipes">
         <div v-for="(recipe, index) in displayRecipes" :key="index">
           <MyCardsRecipe :recipe="recipe" />
         </div>
       </div>
-      <div class="pagination" v-if="totalPages > 1">
+      <div class="recipes__pagination" v-if="totalPages > 1">
         <MyButton variant="carousel" :disabled="page === 1" @click="page--">
           Précédent
         </MyButton>
@@ -247,7 +244,7 @@ console.log(home.value)
   }
 }
 
-.recipes-grid {
+.recipes {
   display: grid;
   grid-template-columns: repeat(
     2,
@@ -271,16 +268,16 @@ console.log(home.value)
     justify-items: center; // centre la card
     max-width: 100%;
   }
+
+  &__pagination {
+    display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      // centre horizontalement
+      align-items: center; // optionnel : centre verticalement
+      gap: rem(5);
+      margin: 2rem 0;
+  }
 }
 
-/* Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  // centre horizontalement
-  align-items: center; // optionnel : centre verticalement
-  gap: rem(5);
-  margin: 2rem 0;
-}
 </style>

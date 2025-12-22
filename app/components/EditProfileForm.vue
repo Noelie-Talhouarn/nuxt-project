@@ -63,8 +63,8 @@ async function saveProfile () {
   </div>
   <form class="form" @submit.prevent="saveProfile">
 
-    <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
-    <p v-if="message" class="form-success">{{ message }}</p>
+    <p v-if="errorMessage" class="form__error">{{ errorMessage }}</p>
+    <p v-if="message" class="form__success">{{ message }}</p>
 
     <div class="form__group">
       <label class="form__label">Prénom</label>

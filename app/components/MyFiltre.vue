@@ -65,8 +65,6 @@ function toggleFilter (value: string) {
   display: flex;
   flex-direction: column;
   --button-color: var(--color-text-btn);
-  --button-bg-color: var(--color-primary);
-  --button-border-color: var(--color-primary);
   padding: rem(8) rem(20);
   color: var(--button-color);
   border-radius: rem(20);
@@ -86,7 +84,7 @@ function toggleFilter (value: string) {
   &__item {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: rem(6);
     
     padding: rem(8) rem(20);
     background: var(--color-secondary);

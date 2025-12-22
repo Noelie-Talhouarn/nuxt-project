@@ -241,13 +241,13 @@ useHead({
       @update:search="search = $event"
     />
 
-    <div v-if="filteredUserRecipes.length" class="recipes-grid">
-      <div
+    <div v-if="filteredUserRecipes.length" class="dashboard-user__recipes">
+      <MyCardsRecipe 
         v-for="recipe in filteredUserRecipes"
         :key="recipe.recipe_id"
-      >
-        <MyCardsRecipe :recipe="recipe" />
-      </div>
+        :recipe="recipe"
+      />
+      
     </div>
 
     <p v-else>Aucune recette pour le moment.</p>
@@ -283,6 +283,17 @@ useHead({
     margin-top: rem(16);
     flex-wrap: wrap;
   }
+
+    &__recipes {
+   display: grid;
+    gap: rem(20);
+
+    justify-items: center;
+  
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    }
 
   @media (min-width: 768px) {
     padding: rem(30);

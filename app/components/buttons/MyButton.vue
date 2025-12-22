@@ -3,6 +3,7 @@ const props = defineProps<{
   href?: string
   variant?: 'default' | 'purple' | 'transparent' | 'carousel'
   size?: 'default' | 'small' | 'medium' | 'large'
+  active?: boolean
 }>()
 
 const emit = defineEmits(['ClickAndHover'])
@@ -21,9 +22,10 @@ function handleClickAndHover () {
       '-purple': variant === 'purple',
       '-transparent': variant === 'transparent',
       '-carousel': variant === 'carousel',
-      small: props.size === 'small',
-      medium: props.size === 'medium',
-      large: props.size === 'large',
+      '-small': props.size === 'small',
+      '-medium': props.size === 'medium',
+      '-large': props.size === 'large',
+      'active': props.active
     }"
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
@@ -38,9 +40,10 @@ function handleClickAndHover () {
       '-transparent': variant === 'transparent',
       '-carousel': variant === 'carousel',
 
-      small: props.size === 'small',
-      medium: props.size === 'medium',
-      large: props.size === 'large',
+      '-small': props.size === 'small',
+      '-medium': props.size === 'medium',
+      '-large': props.size === 'large',
+      'active': props.active
     }"
     @click="handleClickAndHover"
     @mouseenter="handleClickAndHover"
@@ -62,12 +65,7 @@ function handleClickAndHover () {
   text-decoration: none;
   font-size: var(--font-size-base);
   cursor: pointer;
-  &:hover {
-    --button-color: var(--color-primary);
-    --button-bg-color: black;
-    color: white;
-  }
-  &:hover {
+&:hover {
     --button-color: var(--color-text);
     --button-bg-color: var(--color-third);
     color: var(--color-primary);
@@ -91,18 +89,19 @@ function handleClickAndHover () {
     border: rem(2) solid var(--color-secondary);
 
     color: var(--color-primary);
+
     &.active {
       background-color: var(--color-secondary);
       color: var(  --color-text-btn);
     }
   }
-  &.small {
+  &.-small {
     padding: rem(5) rem(10);
   }
-  &.medium {
+  &.-medium {
     padding: rem(7) rem(30);
   }
-  &.large {
+  &.-large {
     padding: rem(12) rem(50);
   }
 }

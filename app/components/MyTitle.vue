@@ -9,7 +9,7 @@ defineProps<{
   <component
     :is="as"
     class="title"
-    :class="`title--${size || 'default'}`"
+    :class="`-${size || 'default'}`"
   >
     <slot />
   </component>
@@ -25,7 +25,7 @@ defineProps<{
   /* =========================
      DEFAULT
   ========================= */
-  &--default {
+  &.-default {
     font-size: rem(22);
 
     @media (min-width: 480px) {
@@ -40,22 +40,22 @@ defineProps<{
   /* =========================
      SMALL
   ========================= */
-  &--small {
-    font-size: rem(18);
+  &.-small {
+    font-size: rem(16);
 
     @media (min-width: 480px) {
-      font-size: rem(100);
+      font-size: rem(16);
     }
 
     @media (min-width: 768px) {
-      font-size: rem(80);
+      font-size: rem(18);
     }
   }
 
   /* =========================
      MEDIUM
   ========================= */
-  &--medium {
+  &.-medium {
     font-size: rem(26);
 
     @media (min-width: 480px) {
@@ -70,7 +70,7 @@ defineProps<{
   /* =========================
      LARGE
   ========================= */
-  &--large {
+  &.-large {
     font-size: rem(30);
 
     @media (min-width: 480px) {

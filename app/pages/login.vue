@@ -59,7 +59,7 @@ async function onSubmit () {
 
       <div class="login__form-group">
         <label class="login__label" for="email">Email</label>
-        <MyInput id="email" v-model="email" type="text" />
+        <MyInput id="email" v-model="email" type="email" />
       </div>
 
       <div class="login__form-group">

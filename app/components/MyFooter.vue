@@ -29,7 +29,7 @@ const { urlFor } = useSanityImage()
           :key="index"
           class="footer__nav-item"
         >
-          <NuxtLink :to="item.url">
+          <NuxtLink :to="item.url" class="footer__link">
             {{ item.label }}
           </NuxtLink>
         </li>
@@ -37,10 +37,19 @@ const { urlFor } = useSanityImage()
 
 
       <ul class="footer__social">
-        <li><a href="/"><IconTiktok /></a></li>
-        <li><a href="/"><IconFacebook /></a></li>
-        <li><a href="/"><IconInsta /></a></li>
-        <li><a href="/"><IconYoutube /></a></li>
+        <li class="footer__social-item">
+          <a href="/" class="footer__social-link"><IconTiktok /></a>
+        </li>
+        <li class="footer__social-item">
+          <a href="/" class="footer__social-link"><IconFacebook /></a>
+        </li>
+        <li class="footer__social-item">
+          <a href="/" class="footer__social-link"><IconInsta /></a>
+        </li>
+        <li class="footer__social-item">
+          <a href="/" class="footer__social-link">
+            <IconYoutube /></a>
+        </li>
       </ul>
     </nav>
 
@@ -75,32 +84,39 @@ const { urlFor } = useSanityImage()
   }
 
 
-  &__nav {
-    display: flex;
-    gap: rem(15);
-    list-style: none;
-    padding: 0;
-    margin: 0;
+ &__nav {
+   display: flex;
+   gap: rem(15);
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   color: var(--color-text-btn);
+ }
 
-    a {
-      color: var(--color-text-btn);
-      text-decoration: none;
-      font-size: rem(15);
-    }
-  }
+ &__nav-item {
+   color: var(--color-text-btn);
+   text-decoration: none;
+   font-size: rem(15);
+ }
 
 
-  &__social {
-    display: flex;
-    gap: 1rem;
-    list-style: none;
-    padding: 0;
+ &__link {
+   color: var(--color-text-btn);
+   font-size: rem(15);
+ }
 
-    a {
-      display: flex;
-      align-items: center;
-    }
-  }
+ &__social {
+   display: flex;
+   gap: rem(16);
+   list-style: none;
+   padding: 0;
+ }
+
+ &__social-link {
+   display: flex;
+   align-items: center;
+   color: var(--color-text-btn);
+ }
 
 
   &__text {

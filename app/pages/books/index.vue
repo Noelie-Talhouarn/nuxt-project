@@ -46,7 +46,7 @@ useHead({
 <template>
   <main class="books">
     <MyTitle class="books__title" as="h1" size="medium">{{ page?.title }}</MyTitle>
-    <p>{{ page?.intro }}</p>
+    <p class="books__intro">{{ page?.intro }}</p>
 
     <div class="books__grid">
       <MyCardsBooks
@@ -68,7 +68,12 @@ useHead({
     text-align: center;
     margin-bottom: rem(30);
     color: var(--color-secondary);
-    font-weight: bold;
+  }
+  &__intro {
+    text-align: center;
+    margin-bottom: rem(20);
+    font-size: var(--font-size-text);
+    color: var(--color-primary);
   }
 
   &__grid {

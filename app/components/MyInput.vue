@@ -14,9 +14,9 @@ defineProps<{
   <div 
     class="input"
     :class="{
-      'input--small': size === 'small',
-      'input--medium': size === 'medium',
-      'input--large': size === 'large',
+      '-small': size === 'small',
+      '-medium': size === 'medium',
+      '-large': size === 'large',
     }"
   >
     <label v-if="label" class="input__label">{{ label }}</label>
@@ -53,15 +53,15 @@ defineProps<{
       color: #888;
     }
   }
-    &--small {
+    &.-small {
     max-width: rem(150);
   }
 
-  &--medium {
+  &.-medium {
     max-width: rem(260);
   }
 
-  &--large {
+  &.-large {
     max-width: rem(350);
   }
 }
