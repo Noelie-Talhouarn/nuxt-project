@@ -12,10 +12,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiUrl: ''
+      apiUrl: process.env.NUXT_PUBLIC_API_URL
     }
   },
-  
+
   vite: {
     optimizeDeps: {
       include: ['react-compiler-runtime', 'react', 'react-dom']
@@ -42,5 +42,4 @@ export default defineNuxtConfig({
     projectId: 'mbbw7e5x',
     dataset: 'production'
   }
-}
-)
+})

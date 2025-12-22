@@ -35,6 +35,7 @@ defineProps<{
   display: flex;
   flex-direction: column;
   gap: rem(8);
+  width: 100%;
 
   &__label {
     font-size: rem(14);
@@ -43,6 +44,11 @@ defineProps<{
   }
 
   &__field {
+    width: 100%;
+      /* ✅ OBLIGATOIRE */
+      max-width: 100%;
+      /* ✅ OBLIGATOIRE */
+      box-sizing: border-box;
     padding: rem(10) rem(14);
     font-size: rem(16);
     border: 1px solid var(--color-secondary);
@@ -54,15 +60,14 @@ defineProps<{
     }
   }
     &.-small {
-    max-width: rem(150);
-  }
+font-size: rem(14);
+  padding: rem(8) rem(12);  }
 
   &.-medium {
-    max-width: rem(260);
-  }
+font-size: rem(16);  }
 
   &.-large {
-    max-width: rem(350);
-  }
+font-size: rem(18);
+  padding: rem(12) rem(16);  }
 }
 </style>

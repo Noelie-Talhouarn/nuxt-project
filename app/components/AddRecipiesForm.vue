@@ -178,6 +178,11 @@ async function onSubmit () {
   }
 
   &__select {
+    width: 100%;
+      /* ✅ OBLIGATOIRE */
+      max-width: 100%;
+      /* ✅ OBLIGATOIRE */
+      box-sizing: border-box;
     padding: rem(10) rem(14);
     font-size: rem(16);
     border: 1px solid var(--color-secondary);
