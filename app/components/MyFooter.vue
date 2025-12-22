@@ -70,7 +70,7 @@ const { urlFor } = useSanityImage()
 
 
   &__nav-container {
-      font-size: var(--font-size-text);
+    font-size: var(--font-size-text);
     width: 100%;
     display: flex;
     align-items: center;

@@ -50,7 +50,7 @@ defineProps<{
     background: var(--color-text-btn);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     &::placeholder {
-      color: #888;
+      color: var(--color-primary);
     }
   }
     &.-small {

@@ -94,14 +94,13 @@ useHead(() => ({
 
   &__cover {
     width: 100%;
-    aspect-ratio: 16/9;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: rem(12);
   }
 
   &__title {
    color: var(--color-secondary);
-    margin-bottom: 1rem;
+    margin-bottom: rem(16);
   }
 
   &__content {
@@ -122,7 +121,7 @@ useHead(() => ({
   &__categories {
     list-style: none;
     padding: 0;
-    margin: 0 0 1rem;
+    margin: 0 0 rem(16);
 
     display: flex;
     flex-wrap: wrap;

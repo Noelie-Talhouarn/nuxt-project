@@ -276,7 +276,7 @@ useHead({
       // centre horizontalement
       align-items: center; // optionnel : centre verticalement
       gap: rem(5);
-      margin: 2rem 0;
+      margin:  rem(20) auto;
   }
 }
 

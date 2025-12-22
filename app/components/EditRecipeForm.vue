@@ -130,7 +130,6 @@ async function saveRecipe () {
 }
 
 &__error {
-  background: rgba(255, 80, 80, 0.15);
   color: var(--color-delete);
   border: rem(2) solid var(--color-delete);
 }
@@ -152,7 +151,7 @@ async function saveRecipe () {
     font-size: rem(16);
     border: rem(2) solid var(--color-secondary);
     border-radius: rem(8);
-    background: var(--color-text-btn);
+    background: var(--color-primary);
   }
 
   &__submit {
