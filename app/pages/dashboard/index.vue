@@ -257,7 +257,7 @@ useHead({
 <style lang="scss">
 .dashboard-user {
   padding: rem(20);
-  gap: rem(16);
+  gap: rem(10);
 
   &__title {
     color: var(--color-secondary);
@@ -286,20 +286,25 @@ useHead({
 
     &__recipes {
    display: grid;
+    grid-template-columns: repeat(2,
+        minmax(rem(250), 1fr)); // 2 colonnes équilibrées
     gap: rem(20);
-
-    justify-items: center;
+    padding-bottom: rem(20);
+    margin-top: rem(20);
   
-    @media (min-width: 768px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    }
-
-  @media (min-width: 768px) {
-    padding: rem(30);
-
-    &__title {
-      font-size: rem(32);
+    /* CENTRER LES 2 COLONNES EN DESKTOP */
+    justify-content: center;
+  
+    /* Pour éviter que les cards s'étalent trop */
+    max-width: rem(900);
+    margin-left: auto;
+    margin-right: auto;
+  
+    /* MOBILE */
+    @media (max-width: 600px) {
+      grid-template-columns: 1fr; // 1 card
+      justify-items: center; // centre la card
+      max-width: 100%;
     }
 
     &__info {
