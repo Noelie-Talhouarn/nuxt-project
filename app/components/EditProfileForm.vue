@@ -100,8 +100,8 @@ async function saveProfile () {
   padding: rem(20);
   border: rem(1) solid var(--color-secondary);
   border-radius: rem(12);
-  max-width: rem(900);
-  margin: rem(2);
+  margin: rem(20) auto;
+
 
   display: grid;
   grid-template-columns: 1fr;
@@ -115,7 +115,7 @@ async function saveProfile () {
   &__title {
     text-align: center;
     color: var(--color-secondary);
-    grid-column: span 2;
+    grid-column: 1 / -1;
   }
 
   &__error,
