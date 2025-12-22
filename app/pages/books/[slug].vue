@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { SanityBook } from '~/types/api/cms/book'
 
-const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, prix, cover, body, metaDescription, author->{ name }, categories[] -> {...} }`
+const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, prix, cover, body, metaDescription, publishedAt,
+ author->{ name }, categories[] -> {...} }`
 const { params } = useRoute()
 
 const { data: book } = await useLazySanityQuery<SanityBook>(BOOK_QUERY, params)
@@ -39,9 +40,10 @@ useHead(() => ({
     </MyTitle>
 
     <div class="book__content">
-      <p class="book__published">
-        Publié le {{ new Date(book.publishedAt).toLocaleDateString() }}
+      <p class="book__published" v-if="book.publishedAt">
+        Publié le {{ new Date(book.publishedAt).toLocaleDateString('fr-FR') }}
       </p>
+
       <p  class="book__author">
         Fais par {{ book.author.name }}
       </p>
@@ -94,14 +96,13 @@ useHead(() => ({
 
   &__cover {
     width: 100%;
-    aspect-ratio: 16/9;
     object-fit: cover;
-    border-radius: 12px;
+    border-radius: rem(12);
   }
 
   &__title {
    color: var(--color-secondary);
-    margin-bottom: 1rem;
+    margin-bottom: rem(16);
   }
 
   &__content {
@@ -122,7 +123,7 @@ useHead(() => ({
   &__categories {
     list-style: none;
     padding: 0;
-    margin: 0 0 1rem;
+    margin: 0 0 rem(16);
 
     display: flex;
     flex-wrap: wrap;

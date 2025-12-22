@@ -57,19 +57,19 @@ const { user, isLoggedIn, logout } = useAuth()
       <!-- BOUTON MENU MOBILE -->
       <button 
         class="header__burger"
-        :class="{ 'header__burger--active': activeMenu }"
+        :class="{ '-active': activeMenu }"
         aria-label="Menu"
         @click="toggleMenu"
       >
-        <span class="header__burger--line"/>
-        <span class="header__burger--line"/>
-        <span class="header__burger--line"/>
+        <span class="header__burger-line"/>
+        <span class="header__burger-line"/>
+        <span class="header__burger-line"/>
       </button>
 
       <!-- NAVIGATION -->
       <nav 
         class="header__nav"
-        :class="{ 'header__nav--open': activeMenu }"
+        :class="{ 'header__nav-open': activeMenu }"
         @click.self="closeMenu"
       >
 
@@ -124,7 +124,7 @@ const { user, isLoggedIn, logout } = useAuth()
 .header {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 80px;
+  height: rem(80);
   background: var(--color-text-btn);
   z-index: 1000;
   border-bottom: solid rem(2) var(--color-secondary);
@@ -143,33 +143,33 @@ const { user, isLoggedIn, logout } = useAuth()
   &__logo-icon {
     width: rem(60);
     height: rem(60);
-    color: var(--color-text);
+    color: var(--color-primary);
   }
 
  /* BURGER MOBILE */
 &__burger {
-  width: 32px;
-  height: 26px;
+  width: rem(30);
+  height: rem(26);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: none;
+  background: var(--color-third);
   border: none;
   padding: 0;
   cursor: pointer;
   z-index: 2000; /* IMPORTANT : la croix reste visible */
 
   &-line {
-      height: 3px;
+      height: rem(4);
       width: 100%;
-      background: var(--color-text);
-      border-radius: 5px;
+      background: var(--color-primary);
+      border-radius: rem(2);
       transition: 0.3s;
     }
   
-    &--active {
+    &.-active {
       .header__burger-line:nth-child(1) {
-        transform: translateY(15px) rotate(45deg);
+        transform: translateY(13px) rotate(45deg);
       }
   
       .header__burger-line:nth-child(2) {
@@ -197,15 +197,15 @@ const { user, isLoggedIn, logout } = useAuth()
     height: 100vh;
     width: 100%;
     background: var(--color-text-btn);
-    padding-top: 100px;
+    padding-top: rem(80);
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 30px;
+    gap: rem(30);
     transform: translateX(-100%);
     transition: 0.4s ease;
 
-    &--open {
+    &-open {
       transform: translateX(0);
     }
 
@@ -213,12 +213,12 @@ const { user, isLoggedIn, logout } = useAuth()
       position: static;
       height: auto;
       width: auto;
-      background: transparent;
+      background: var(--color-third);
       padding-top: 0;
       transform: none;
       flex-direction: row;
       align-items: center;
-      gap: 40px;
+      gap: rem(20);
     }
   }
 
@@ -228,18 +228,18 @@ const { user, isLoggedIn, logout } = useAuth()
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: rem(20);
 
     @media (min-width: 1024px) {
       flex-direction: row;
-      gap: 35px;
+      gap: rem(30);
     }
   }
 
   &__link {
-    font-size: 20px;
+    font-size: rem(16);
     font-weight: 500;
-    color: #222;
+    color: var(--color-primary);
     text-decoration: none;
     transition: 0.2s;
 
@@ -250,7 +250,7 @@ const { user, isLoggedIn, logout } = useAuth()
 
 
     @media (min-width: 1024px) {
-      font-size: 16px;
+      font-size: rem(16);
     }
   }
 
@@ -258,35 +258,35 @@ const { user, isLoggedIn, logout } = useAuth()
   &__auth {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: rem(10);
 
     @media (min-width: 1024px) {
       flex-direction: row;
       align-items: center;
-      gap: 15px;
+      gap: rem(15);
     }
   }
 
   &__email {
-    font-size: 14px;
-    color: #666;
+    font-size: rem(14);
+    color: var(--color-secondary);
   }
 
   &__btn {
-    padding: 10px 18px;
-    border-radius: 8px;
+    padding: rem(10) rem(18);
+    border-radius: rem(8);
     font-weight: 600;
     text-align: center;
     text-decoration: none;
     transition: 0.2s;
 
     &--logout {
-      border: 1px solid red;
-      color: red;
+      border: rem(1) solid var(--color-delete);
+      color: var(--color-delete);
 
       &:hover {
-        background: red;
-        color: white;
+        background: var(--color-delete);
+        color: var(--color-text-btn);
       }
     }
   }

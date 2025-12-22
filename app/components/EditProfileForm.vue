@@ -101,7 +101,7 @@ async function saveProfile () {
   border: rem(1) solid var(--color-secondary);
   border-radius: rem(12);
   max-width: rem(900);
-  margin: 2rem auto;
+  margin: rem(2);
 
   display: grid;
   grid-template-columns: 1fr;
@@ -128,13 +128,11 @@ async function saveProfile () {
   }
 
   &__error {
-    background: rgba(255, 80, 80, 0.15);
     color: var(--color-delete);
     border:  rem(2) solid var(--color-delete);
   }
 
   &__success {
-    background: rgba(80, 255, 130, 0.15);
     color: var(--color-secondary);
     border: rem(2) solid var(--color-secondary);
   }

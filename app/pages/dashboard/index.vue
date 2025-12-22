@@ -274,7 +274,7 @@ useHead({
 
   &__field {
     font-size: rem(16);
-    color: var(--color-text);
+    color: var(--color-primary);
   }
 
   &__actions {

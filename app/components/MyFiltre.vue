@@ -77,8 +77,7 @@ function toggleFilter (value: string) {
     flex-wrap: wrap;
     gap: rem(10);
     justify-content: center;
-      padding-top: rem(20);
-
+    padding-top: rem(20);
   }
 
   &__item {

@@ -193,6 +193,7 @@ useHead({
 
   /* ===== TITRE ===== */
   &__title {
+    color: var(--color-text-btn);
     margin-bottom: rem(12);
     font-size: rem(28);
     line-height: 1.2;
@@ -276,7 +277,7 @@ useHead({
       // centre horizontalement
       align-items: center; // optionnel : centre verticalement
       gap: rem(5);
-      margin: 2rem 0;
+      margin:  rem(20) auto;
   }
 }
 

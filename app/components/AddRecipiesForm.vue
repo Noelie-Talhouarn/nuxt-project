@@ -139,8 +139,8 @@ async function onSubmit () {
   padding: rem(20);
   border: rem(1) solid var(--color-secondary);
   border-radius: rem(12);
-  max-width: rem(900);   /* élargi pour accueillir 2 colonnes */
-  margin: 2rem auto;
+  max-width: rem(900);  
+  margin: rem(2);
 
   display: grid;
   grid-template-columns: 1fr; 
@@ -157,7 +157,6 @@ async function onSubmit () {
 
 &__error {
   grid-column: span 2;
-  background: rgba(255, 80, 80, 0.15);
   color: var(--color-delete);
   border: rem(2) solid var(--color-delete);
   padding: rem(10);
