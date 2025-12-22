@@ -151,7 +151,7 @@ async function saveRecipe () {
     font-size: rem(16);
     border: rem(2) solid var(--color-secondary);
     border-radius: rem(8);
-    background: var(--color-primary);
+    background: var(--color-text-btn);
   }
 
   &__submit {

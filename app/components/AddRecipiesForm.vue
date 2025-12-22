@@ -182,7 +182,7 @@ async function onSubmit () {
     font-size: rem(16);
     border: 1px solid var(--color-secondary);
     border-radius: rem(8);
-    background: var(--color-primary);
+    background: var(--color-text-btn);
   }
 
   /* Bouton centré sur toute la largeur */
