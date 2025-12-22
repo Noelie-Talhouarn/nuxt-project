@@ -61,7 +61,9 @@ const { user, isLoggedIn, logout } = useAuth()
         aria-label="Menu"
         @click="toggleMenu"
       >
-        <span/><span/><span/>
+        <span class="header__burger--line"/>
+        <span class="header__burger--line"/>
+        <span class="header__burger--line"/>
       </button>
 
       <!-- NAVIGATION -->
@@ -71,10 +73,12 @@ const { user, isLoggedIn, logout } = useAuth()
         @click.self="closeMenu"
       >
 
-        <ul class="header__menu header-list">
+        <ul class="header__menu">
           <li v-for="(item, index) in navigation" :key="index">
-            <NuxtLink :to="item.url" 
-                      @click="closeMenu"
+            <NuxtLink 
+              :to="item.url" 
+              class="header__link"
+              @click="closeMenu"
             >
               {{ item.label }}
             </NuxtLink>
@@ -155,20 +159,29 @@ const { user, isLoggedIn, logout } = useAuth()
   cursor: pointer;
   z-index: 2000; /* IMPORTANT : la croix reste visible */
 
-  span {
-    height: 3px;
-    width: 100%;
-    background: var(--color-text);
-    border-radius: 5px;
-    transition: 0.3s;
+  &-line {
+      height: 3px;
+      width: 100%;
+      background: var(--color-text);
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+  
+    &--active {
+      .header__burger-line:nth-child(1) {
+        transform: translateY(15px) rotate(45deg);
+      }
+  
+      .header__burger-line:nth-child(2) {
+        opacity: 0;
+      }
+  
+      .header__burger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+    }
   }
 
-  &--active {
-    span:nth-child(1) { transform: translateY(15px) rotate(45deg); }
-    span:nth-child(2) { opacity: 0; }
-    span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-  }
-}
 
 /* ⬅️ CORRECT : MEDIA QUERY À PART */
 @media (min-width: 1024px) {

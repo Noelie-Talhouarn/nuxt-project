@@ -39,6 +39,9 @@ useHead(() => ({
     </MyTitle>
 
     <div class="book__content">
+      <p class="book__published">
+        Publié le {{ new Date(book.publishedAt).toLocaleDateString() }}
+      </p>
       <p  class="book__author">
         Fais par {{ book.author.name }}
       </p>
@@ -80,13 +83,13 @@ useHead(() => ({
 <style lang="scss">
 
   .book {
-  max-width: 700px;
+  max-width: rem(800);
   margin: 0 auto;
-  padding: 2rem;
+  padding: rem(32);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: rem(24);
   
 
   &__cover {
@@ -102,18 +105,17 @@ useHead(() => ({
   }
 
   &__content {
-    font-size: 1rem;
     line-height: 1.6;
   }
 
   &__published,
   &__author {
     margin-bottom: rem(1);
-    color: #666;
+    color: var(--color-primary);
   }
 
   &__categories-title {
-    margin-top: 1rem;
+    margin-top: rem(1);
     font-weight: 600;
   }
 
@@ -124,7 +126,7 @@ useHead(() => ({
 
     display: flex;
     flex-wrap: wrap;
-    gap: .5rem;
+    gap: rem(5);
   }
 
   &__category {
@@ -132,8 +134,7 @@ useHead(() => ({
     border: rem(1) solid var(--color-secondary);
     color: var(--color-secondary);
     padding: rem(7);
-    border-radius: 6px;
-    font-size: .875rem;
+    border-radius: rem(6);
   }
 
   }

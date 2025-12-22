@@ -67,7 +67,7 @@ async function saveRecipe () {
 
   } catch (err) {
     console.error(err)
-    errorMessage.value = 'Erreur lors de la mise à jour ❌'
+    errorMessage.value = 'Erreur lors de la mise à jour '
   }
 }
 </script>
@@ -76,7 +76,7 @@ async function saveRecipe () {
 
   <form class="form" @submit.prevent="saveRecipe">
 
-    <p v-if="errorMessage" class="form-error">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="form__error">{{ errorMessage }}</p>
 
     <div class="form__group">
       <label class="form__label">Titre</label>
@@ -121,26 +121,19 @@ async function saveRecipe () {
     text-align: center;
   }
 
-  .form-error,
-  .form-success {
-    grid-column: span 2;
-    padding: rem(10);
-    border-radius: rem(8);
-    text-align: center;
-    font-weight: 600;
-  }
+&__error {
+  grid-column: span 2;
+  padding: rem(10);
+  border-radius: rem(8);
+  text-align: center;
+  font-weight: 600;
+}
 
-  .form-error {
-    background: rgba(255, 80, 80, 0.15);
-    color: var(--color-delete);
-    border: 1px solid var(--color-delete);
-  }
-
-  .form-success {
-    background: rgba(80, 255, 130, 0.15);
-    color: var(--color-secondary);
-    border: rem(2) solid var(--color-secondary);
-  }
+&__error {
+  background: rgba(255, 80, 80, 0.15);
+  color: var(--color-delete);
+  border: rem(2) solid var(--color-delete);
+}
 
   &__group {
     display: flex;

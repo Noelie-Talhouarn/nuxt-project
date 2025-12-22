@@ -48,7 +48,6 @@ const { urlFor } = useSanityImage()
     width: 100%;
     height: rem(200);
     object-fit: cover;
-    border-radius: rem(12);
   }
 
   &__content {
@@ -59,8 +58,6 @@ const { urlFor } = useSanityImage()
   }
 
   &__title {
-    font-size: rem(5);
-    font-weight: 700;
     color: var(--color-text-btn);
   }
 

@@ -18,7 +18,7 @@ defineProps<{
       <p class="card__description">
         {{ recipe.description }}
       </p>
-      <p>{{ recipe.cuisine_name }} {{ recipe.diet_name }} {{ recipe.goal_name }}</p>
+      <p class="card__meta">{{ recipe.cuisine_name }} {{ recipe.diet_name }} {{ recipe.goal_name }}</p>
 
       <div class="card__footer">
         <NuxtLink :to="`/recipe/${recipe.recipe_id}`">
@@ -34,14 +34,11 @@ defineProps<{
 .card {
   background: var(--color-secondary);
   border-radius: rem(12);
+  width: 100%;
   max-width: rem(360);
   display: flex;
   flex-direction: column;
   gap: rem(12);
-
-  &__image {
-  border-radius: rem(12);
-  }
 
   &__content {
     padding: rem(10);
@@ -51,10 +48,14 @@ defineProps<{
   }
 
   &__title {
-    font-size: rem(22);
     font-weight: 700;
     color: var(--color-text-btn);
   }
+
+    &__meta {
+      font-size: rem(14);
+      color: var(--color-text-btn);
+    }
 
   &__description {
     font-size: rem(15);
