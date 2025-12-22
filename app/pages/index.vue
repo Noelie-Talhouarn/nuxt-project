@@ -193,6 +193,7 @@ useHead({
 
   /* ===== TITRE ===== */
   &__title {
+    color: var(--color-text-btn);
     margin-bottom: rem(12);
     font-size: rem(28);
     line-height: 1.2;

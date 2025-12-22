@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { SanityBook } from '~/types/api/cms/book'
 
-const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, prix, cover, body, metaDescription, author->{ name }, categories[] -> {...} }`
+const BOOK_QUERY = groq`*[_type == "book" && slug.current == $slug][0]{ slug, title, prix, cover, body, metaDescription, publishedAt,
+ author->{ name }, categories[] -> {...} }`
 const { params } = useRoute()
 
 const { data: book } = await useLazySanityQuery<SanityBook>(BOOK_QUERY, params)
@@ -39,9 +40,10 @@ useHead(() => ({
     </MyTitle>
 
     <div class="book__content">
-      <p class="book__published">
-        Publié le {{ new Date(book.publishedAt).toLocaleDateString() }}
+      <p class="book__published" v-if="book.publishedAt">
+        Publié le {{ new Date(book.publishedAt).toLocaleDateString('fr-FR') }}
       </p>
+
       <p  class="book__author">
         Fais par {{ book.author.name }}
       </p>

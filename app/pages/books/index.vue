@@ -45,8 +45,8 @@ useHead({
 
 <template>
   <main class="books">
-    <MyTitle class="books__title" as="h1" size="medium">{{ page?.title }}</MyTitle>
-    <p class="books__intro">{{ page?.intro }}</p>
+    <MyTitle class="books__title" as="h1" size="large">{{ page?.title }}</MyTitle>
+    <MyTitle class="books__intro" as="h2" size="medium">{{ page?.intro }}</MyTitle>
 
     <div class="books__grid">
       <MyCardsBooks

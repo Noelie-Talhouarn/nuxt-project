@@ -56,7 +56,7 @@ defineProps<{
      MEDIUM
   ========================= */
   &.-medium {
-    font-size: rem(26);
+    font-size: rem(22);
 
     @media (min-width: 480px) {
       font-size: rem(30);
