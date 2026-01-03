@@ -36,7 +36,7 @@ async function onSubmit () {
     const json = await response.json()
 
     if (!json.success) {
-      errorMessage.value = json.message || 'Erreur lors de l’inscription ❌'
+      errorMessage.value = json.message || 'Erreur lors de l’inscription'
       return
     }
 
@@ -63,7 +63,7 @@ async function onSubmit () {
 
   } catch (err) {
     console.error(err)
-    errorMessage.value = 'Erreur serveur ❌'
+    errorMessage.value = 'Erreur serveur'
   }
 }
 </script>

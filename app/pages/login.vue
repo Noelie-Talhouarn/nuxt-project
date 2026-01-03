@@ -95,17 +95,15 @@ margin-bottom: rem(24);
     border-radius: rem(12);
     background: var(--color-bg);
 
-    /* Toujours une colonne */
     display: flex;
     flex-direction: column;
     gap: rem(20);
 
-    /* ---- Formulaire étroit en desktop ---- */
     max-width: rem(450);
     margin: 0 auto;
 
     @media (max-width: 768px) {
-      max-width: 100%; /* full width en mobile */
+      max-width: 100%; 
     }
   }
 

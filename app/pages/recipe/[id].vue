@@ -32,7 +32,6 @@ async function deleteRecipe () {
       }
     })
 
-    // Retour au dashboard
     navigateTo('/dashboard')
 
   } catch (err) {
@@ -41,20 +40,6 @@ async function deleteRecipe () {
   }
 }
 
-// const userCookie = useCookie('recipe_token')
-
-// const user = computed(() => {
-//   if (!userCookie.value) return null
-
-//   try {
-//     const payload = userCookie.value.split('.')[1]
-//     if (!payload) return null
-
-//     return JSON.parse(atob(payload))
-//   } catch {
-//     return null
-//   }
-// })
 
 const { user } = useAuth()
 

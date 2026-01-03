@@ -35,14 +35,14 @@ async function saveProfile () {
       }
     )
 
-    message.value = 'Profil mis à jour ✅'
+    message.value = 'Profil mis à jour'
 
     emit('updated', response.data)
     emit('close')
 
   } catch (err) {
     console.error(err)
-    errorMessage.value = '❌ Erreur lors de la mise à jour.'
+    errorMessage.value = 'Erreur lors de la mise à jour.'
   }
 }
 </script>
