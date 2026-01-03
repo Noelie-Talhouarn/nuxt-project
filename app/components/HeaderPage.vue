@@ -18,30 +18,6 @@ const { urlFor } = useSanityImage()
 const { user, isLoggedIn, logout } = useAuth()
 
 
-// ============================
-// AUTH avec JWT dans le cookie
-// ============================
-// const cookie = useCookie('recipe_token')
-
-// const user = computed(() => {
-//   if (!cookie.value) return null
-
-//   try {
-//     const parts = cookie.value.split('.')
-//     if (!parts[1]) return null
-
-//     return JSON.parse(atob(parts[1]))
-//   } catch {
-//     return null
-//   }
-// })
-
-// const isLoggedIn = computed(() => !!user.value)
-
-// function logout () {
-//   cookie.value = null
-//   navigateTo('/login')
-// }
 </script>
 
 <template>
@@ -157,8 +133,7 @@ const { user, isLoggedIn, logout } = useAuth()
   border: none;
   padding: 0;
   cursor: pointer;
-  z-index: 2000; /* IMPORTANT : la croix reste visible */
-
+  z-index: 2000; 
   &-line {
       height: rem(4);
       width: 100%;
@@ -183,14 +158,12 @@ const { user, isLoggedIn, logout } = useAuth()
   }
 
 
-/* ⬅️ CORRECT : MEDIA QUERY À PART */
 @media (min-width: 1024px) {
   .header__burger {
     display: none;
   }
 }
 
-  /* NAVIGATION */
   &__nav {
     position: fixed;
     top: 0; left: 0;
@@ -254,7 +227,6 @@ const { user, isLoggedIn, logout } = useAuth()
     }
   }
 
-  /* AUTH BUTTONS */
   &__auth {
     display: flex;
     flex-direction: column;

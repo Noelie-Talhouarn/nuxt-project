@@ -11,11 +11,10 @@ const cookie = useCookie('recipe_token')
 // Valeurs du formulaire
 const form = ref({
   title: props.recipe.title,
-  AllergiesInformation_id: props.recipe.AllergiesInformation_id // <-- CORRECT
+  AllergiesInformation_id: props.recipe.AllergiesInformation_id 
 })
 
 
-// Charger allergies
 const { data: allergiesRes } = await useAsyncData('allergies', async () => {
   const res = await $fetch<ApiResponse<Allergy[]>>(
     `${config.public.apiUrl}/api/allergies`
@@ -34,7 +33,6 @@ async function saveRecipe () {
 
   try {
 
-    /* ========== UPDATE TITLE ========== */
     if (form.value.title !== props.recipe.title) {
       await $fetch(`${config.public.apiUrl}/api/recipes/${props.recipe.recipe_id}/title`, {
         method: 'PUT',
@@ -43,7 +41,6 @@ async function saveRecipe () {
       })
     }
 
-    /* ========== UPDATE ALLERGY ========== */
     if (form.value.AllergiesInformation_id !== props.recipe.AllergiesInformation_id) {
       await $fetch(`${config.public.apiUrl}/api/recipes/${props.recipe.recipe_id}/allergy`, {
         method: 'PUT',
@@ -52,7 +49,6 @@ async function saveRecipe () {
       })
     }
 
-    // Mettre à jour localement
     emit('updated', {
       ...props.recipe,
       title: form.value.title,
@@ -100,7 +96,6 @@ async function saveRecipe () {
 </template>
 
 <style lang="scss">
-/* EXACTEMENT la même structure que ton AddRecipiesForm */
 .form {
   padding: rem(20);
   border: rem(1) solid var(--color-secondary);

@@ -45,9 +45,7 @@ defineProps<{
 
   &__field {
     width: 100%;
-      /* ✅ OBLIGATOIRE */
       max-width: 100%;
-      /* ✅ OBLIGATOIRE */
       box-sizing: border-box;
     padding: rem(10) rem(14);
     font-size: rem(16);

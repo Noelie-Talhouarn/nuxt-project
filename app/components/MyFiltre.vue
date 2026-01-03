@@ -11,12 +11,10 @@ const emit = defineEmits([
   'update:search'
 ])
 
-// --- Mise à jour de la recherche ---
 function onSearchInput (value: string | undefined) {
   emit('update:search', value ?? '')
 }
 
-// --- Toggle checkbox ---
 function toggleFilter (value: string) {
   const newFilters = [...props.modelValue]
 
@@ -31,7 +29,6 @@ function toggleFilter (value: string) {
 <template>
   <div class="filters">
 
-    <!-- 🔎 Barre de recherche -->
     <MyInput
       label="Rechercher une recette"
       type="text"
@@ -40,7 +37,6 @@ function toggleFilter (value: string) {
       @update:model-value="onSearchInput"
     />
 
-    <!-- 🏷️ Liste des filtres -->
     <div class="filters__list">
       <label
         v-for="cuisine in cuisines"

@@ -109,7 +109,7 @@ function openEditProfilForm () {
 }
 
 function updateUserLocally (newUser: User) {
-  user.value = newUser // 🔥 mise à jour immédiate
+  user.value = newUser
   showEditForm.value = false
 }
 
@@ -134,10 +134,8 @@ async function deleteAccount () {
       }
     })
 
-    // On supprime le token côté client
     cookie.value = null
 
-    // Redirection vers login
     navigateTo('/login')
 
   } catch (err) {
@@ -205,7 +203,6 @@ useHead({
    
       </div>
 
-      <!-- Formulaire édition profil -->
       <EditProfileForm
         v-if="showEditForm && user"
         :user="user"
@@ -279,23 +276,21 @@ useHead({
     &__recipes {
    display: grid;
     grid-template-columns: repeat(2,
-        minmax(rem(250), 1fr)); // 2 colonnes équilibrées
+        minmax(rem(250), 1fr)); 
     gap: rem(20);
     padding-bottom: rem(20);
     margin-top: rem(20);
   
-    /* CENTRER LES 2 COLONNES EN DESKTOP */
     justify-content: center;
   
-    /* Pour éviter que les cards s'étalent trop */
     max-width: rem(900);
     margin-left: auto;
     margin-right: auto;
   
     /* MOBILE */
     @media (max-width: 600px) {
-      grid-template-columns: 1fr; // 1 card
-      justify-items: center; // centre la card
+      grid-template-columns: 1fr; 
+      justify-items: center; 
       max-width: 100%;
     }
 
