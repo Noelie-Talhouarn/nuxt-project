@@ -65,9 +65,7 @@ defineProps<{
   }
 
   &__footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
     margin-top: rem(8);
     color: var(--color-text-btn);
   }

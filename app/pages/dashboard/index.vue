@@ -15,7 +15,6 @@ function onLogoutClick () {
 const config = useRuntimeConfig()
 const cookie = useCookie<string | null>('recipe_token')
 
-type UserApiResponse = ApiResponse<User>
 
 type RecipesApiResponse = { data: Recipe[] }
 
@@ -25,20 +24,12 @@ const { user, isLoggedIn } = useAuth()
 
 
 const [
-  { data: userResponse },
   { data: myRecipes, refresh: refreshMyRecipes },
   { data: cuisines },
   { data: goals },
   { data: diets },
   { data: allergies }
 ] = await Promise.all([
-  useAsyncData<UserApiResponse | null>('user-profile', async () => {
-    if (!token.value) return null
-    return await $fetch<UserApiResponse>(`${config.public.apiUrl}/api/users/profile`, {
-      headers: { Authorization: `Bearer ${token.value}` }
-    })
-  }),
-
   useAsyncData<RecipesApiResponse>('my-recipes', async () => {
     return await $fetch<RecipesApiResponse>(`${config.public.apiUrl}/api/recipes/my-recipes`, {
       headers: { Authorization: `Bearer ${token.value}` }
@@ -118,14 +109,15 @@ function openEditProfilForm () {
 }
 
 function updateUserLocally (newUser: User) {
-  if (userResponse.value) {
-    userResponse.value = {
-      ...userResponse.value,
-      data: newUser
-    }
-  }
+  user.value = newUser // 🔥 mise à jour immédiate
   showEditForm.value = false
 }
+
+
+const { fetchUser } = useAuth()
+
+await fetchUser()
+
 
 async function deleteAccount () {
   if (!confirm('⚠️ Cette action est irréversible. Votre compte sera définitivement supprimé.\nVoulez-vous continuer ?')) {

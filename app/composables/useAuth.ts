@@ -1,28 +1,40 @@
 export function useAuth () {
   const cookie = useCookie<string | null>('recipe_token')
 
-  const user = computed(() => {
-    if (!cookie.value) return null
+  const user = useState<User | null>('auth-user', () => null)
 
-    try {
-      const payload = cookie.value.split('.')[1]
-      if (!payload) return null
-      return JSON.parse(atob(payload))
-    } catch {
-      return null
+  const isLoggedIn = computed(() => !!cookie.value)
+
+  async function fetchUser () {
+    if (!cookie.value) {
+      user.value = null
+      return
     }
-  })
 
-  const isLoggedIn = computed(() => !!user.value)
+    const config = useRuntimeConfig()
+
+    const res = await $fetch<ApiResponse<User>>(
+      `${config.public.apiUrl}/api/users/profile`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookie.value}`
+        }
+      }
+    )
+
+    user.value = res.data
+  }
 
   function logout () {
     cookie.value = null
+    user.value = null
     navigateTo('/login')
   }
 
   return {
     user,
     isLoggedIn,
+    fetchUser,
     logout
   }
 }

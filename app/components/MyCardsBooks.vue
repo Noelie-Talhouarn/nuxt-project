@@ -70,8 +70,6 @@ const { urlFor } = useSanityImage()
 
   &__footer {
     margin-top: rem(8);
-    display: flex;
-    justify-content: flex-end;
     color: var(--color-text-btn);
   }
 }
